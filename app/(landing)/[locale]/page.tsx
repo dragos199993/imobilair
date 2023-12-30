@@ -1,7 +1,3 @@
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { routes } from '@/constants/routes'
-import { BrainIcon, HeartIcon, LayoutTemplate } from 'lucide-react'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { NextIntlClientProvider, useMessages, useTranslations } from 'next-intl'
 import { HeroVideo } from '@/app/(landing)/[locale]/_components/HeroVideo'
@@ -14,20 +10,19 @@ export default function Home() {
 
   return (
     <TooltipProvider>
-      <section className="text-center">
-        <h1 className=" mb-6 mt-12 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+      <section className="p-4 text-center sm:p-0">
+        <h1 className="mb-6 mt-4 scroll-m-20 text-4xl font-extrabold tracking-tight sm:mt-20 lg:text-5xl">
           {t('hero_title')}
         </h1>
         <p className="mx-auto mb-8 max-w-[800px] text-gray-500 dark:text-gray-400 md:text-xl">
           {t('hero_description')}
         </p>
-        <HeroVideo />
-
         <NextIntlClientProvider messages={pick(messages, 'Landing')}>
-          <div className="mb-16 mt-8">
+          <div className="mb-16 mt-8 w-full">
             <EarlyAccessDrawer />
           </div>
         </NextIntlClientProvider>
+        <HeroVideo />
       </section>
     </TooltipProvider>
   )

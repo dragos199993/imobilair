@@ -8,8 +8,8 @@ import { dark } from '@clerk/themes'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Nunta Noastra',
-  description: 'Genereaza invitatii pentru nunta ta',
+  title: 'Imobilair',
+  description: 'Imobilair app',
 }
 
 export default function RootLayout({

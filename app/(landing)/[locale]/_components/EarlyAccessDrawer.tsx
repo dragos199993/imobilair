@@ -67,7 +67,7 @@ export function EarlyAccessDrawer() {
       <DrawerTrigger asChild>
         <Button>{t('early_access')}</Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="sm:max-w-[650px]">
         <DrawerHeader className="text-left">
           <DrawerTitle>{t('early_access')}</DrawerTitle>
           <DrawerDescription>{t('early_access_description')}</DrawerDescription>
