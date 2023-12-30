@@ -1,0 +1,21 @@
+{
+  "Landing": {
+    "hero_title": "Sa fi agent imobiliar nu a fost niciodata mai usor",
+    "hero_description": "Pentru fiecare anunt publicat, primesti un chatbot care iti raspunde la intrebari si iti trimite notificari cand cineva este interesat de proprietate.",
+    "early_access": "Anunta-ma cand este disponibil",
+    "early_access_description": "Imediat ce aplicatia este disponibila, vei primi un email.",
+    "name_label": "Nume",
+    "email_invalid": "Email invalid",
+    "email_label": "Email",
+    "name_required": "Nume este obligatoriu",
+    "submit_button": "Trimite",
+    "close_drawer": "Inchide"
+  },
+  "LocaleSwitcher": {
+    "ro": "Romana",
+    "hu": "Maghiara"
+  },
+  "Footer": {
+    "all_rights_reserved": "Toate drepturile rezervate"
+  }
+}
