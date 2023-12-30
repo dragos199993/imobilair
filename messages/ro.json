@@ -1,19 +1,19 @@
 {
   "Landing": {
-    "hero_title": "Sa fi agent imobiliar nu a fost niciodata mai usor",
-    "hero_description": "Pentru fiecare anunt publicat, primesti un chatbot care iti raspunde la intrebari si iti trimite notificari cand cineva este interesat de proprietate.",
-    "early_access": "Anunta-ma cand este disponibil",
-    "early_access_description": "Imediat ce aplicatia este disponibila, vei primi un email.",
+    "hero_title": "Ajutorul tău pentru a vinde eficient proprietăți imobiliare.",
+    "hero_description": "Pentru fiecare anunț publicat, primești un chatbot care răspunde la întrebări și îți trimite notificări când cineva este interesat de proprietate.",
+    "early_access": "Obține acces timpuriu",
+    "early_access_description": "Imediat ce aplicația este disponibilă, vei primi un email.",
     "name_label": "Nume",
     "email_invalid": "Email invalid",
     "email_label": "Email",
-    "name_required": "Nume este obligatoriu",
+    "name_required": "Numele este obligatoriu",
     "submit_button": "Trimite",
-    "close_drawer": "Inchide"
+    "close_drawer": "Închide"
   },
   "LocaleSwitcher": {
-    "ro": "Romana",
-    "hu": "Maghiara"
+    "ro": "Română",
+    "hu": "Maghiară"
   },
   "Footer": {
     "all_rights_reserved": "Toate drepturile rezervate"

@@ -42,7 +42,7 @@ export const HeroVideo = () => {
   }
 
   return (
-    <div className="mx-auto max-w-[750px]">
+    <div className="mx-auto max-w-[1024px]">
       {isVideoLoading && <Skeleton className="w-[750px] pb-[56.25%]" />}
       <div className={cn('relative h-0 pb-[56.25%]', isVideoLoading && 'pb-0')}>
         <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />

@@ -10,20 +10,20 @@ export default function Home() {
 
   return (
     <TooltipProvider>
-      <section className="p-4 text-center sm:p-0">
+      <section className="px-12 text-center sm:p-0 sm:px-6">
         <h1 className="mb-6 mt-4 scroll-m-20 text-4xl font-extrabold tracking-tight sm:mt-20 lg:text-5xl">
           {t('hero_title')}
         </h1>
-        <p className="mx-auto mb-8 max-w-[800px] text-gray-500 dark:text-gray-400 md:text-xl">
+        <p className="mx-auto mb-4 max-w-[800px] text-gray-500 dark:text-gray-400 md:text-xl">
           {t('hero_description')}
         </p>
         <NextIntlClientProvider messages={pick(messages, 'Landing')}>
-          <div className="mb-16 mt-8 w-full">
+          <div className="mb-16 w-full pt-2">
             <EarlyAccessDrawer />
           </div>
         </NextIntlClientProvider>
-        <HeroVideo />
       </section>
+      <HeroVideo />
     </TooltipProvider>
   )
 }

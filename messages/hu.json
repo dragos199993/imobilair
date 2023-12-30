@@ -1,21 +1,21 @@
 {
   "Landing": {
-    "hero_title": "Sa fi agent imobiliar nu a fost niciodata mai usor",
-    "hero_description": "Pentru fiecare anunt publicat, primesti un chatbot care iti raspunde la intrebari si iti trimite notificari cand cineva este interesat de proprietate.",
-    "early_access": "Get early access",
-    "early_access_description": "Imediat ce aplicatia este disponibila, vei primi un email.",
-    "name_label": "Nume",
-    "email_invalid": "Email invalid",
-    "email_label": "Email",
-    "name_required": "Nume este obligatoriu",
-    "submit_button": "Trimite",
-    "close_drawer": "Inchide"
+    "hero_title": "Segítséged az ingatlanok hatékony értékesítéséhez.",
+    "hero_description": "Minden hirdetés elküldése után egy chatbotot kapsz, amely válaszol a kérdésekre és értesítéseket küld, amikor valaki érdeklődik az ingatlan iránt.",
+    "early_access": "Korai hozzáférés megszerzése",
+    "early_access_description": "Amint az alkalmazás elérhetővé válik, egy e-mailt küldünk neked.",
+    "name_label": "Név",
+    "email_invalid": "Érvénytelen e-mail",
+    "email_label": "E-mail",
+    "name_required": "A név kötelező",
+    "submit_button": "Küldés",
+    "close_drawer": "Bezárás"
   },
   "LocaleSwitcher": {
-    "ro": "Romana",
+    "ro": "Román",
     "hu": "Magyar"
   },
   "Footer": {
-    "all_rights_reserved": "Toate drepturile rezervate"
+    "all_rights_reserved": "Minden jog fenntartva"
   }
 }
