@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import { routes } from '@/constants/routes'
-import { Badge } from '@/components/ui/badge'
 
 export const Logo = () => {
   return (
@@ -27,7 +26,6 @@ export const Logo = () => {
         </svg>
         {process.env.NEXT_PUBLIC_APP_NAME}
       </Link>
-      <Badge variant="destructive">Staging</Badge>
     </div>
   )
 }
