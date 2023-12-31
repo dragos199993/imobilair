@@ -8,28 +8,30 @@ import Script from 'next/script'
 export default function Home() {
   const t = useTranslations('Landing')
   const messages = useMessages()
-
+  const ga_id = process.env.NEXT_PUBLIC_GA_ID
   return (
     <>
       {process.env.NEXT_PUBLIC_GTM_ID && (
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
       )}
-      {process.env.NEXT_PUBLIC_GA_ID && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-          />
-          <Script id="google-analytics">
-            {`
+
+      <Script
+        async
+        src={`https://www.googletagmanager.com/gtag/js? 
+      id=${ga_id}`}
+      ></Script>
+      <Script
+        id="google-analytics"
+        dangerouslySetInnerHTML={{
+          __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
- 
-          gtag('config', ${process.env.NEXT_PUBLIC_GA_ID});
-        `}
-          </Script>
-        </>
-      )}
+
+          gtag('config', '${ga_id}');
+        `,
+        }}
+      ></Script>
       <section className="px-12 text-center sm:p-0 sm:px-6">
         <h1 className="mb-4 mt-4 scroll-m-20 text-4xl font-extrabold tracking-tight sm:mt-20 lg:text-5xl">
           {t('hero_title')}
