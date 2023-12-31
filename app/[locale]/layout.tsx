@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { ClerkProvider } from '@clerk/nextjs'
 import { dark } from '@clerk/themes'
 import { Toaster } from '@/components/ui/sonner'
+import Head from 'next/head'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,6 +26,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang={locale} suppressHydrationWarning>
+      <Head>
+        <meta name="robots" content="NOINDEX, NOFOLLOW" />
+      </Head>
       <body className={inter.className}>
         <ClerkProvider
           appearance={{
