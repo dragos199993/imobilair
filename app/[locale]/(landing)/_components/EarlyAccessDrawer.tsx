@@ -1,7 +1,6 @@
 'use client'
 import * as React from 'react'
 
-import { cn } from '@/lib/utils'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { Button } from '@/components/ui/button'
 import {
@@ -23,7 +22,6 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -31,12 +29,13 @@ import { useTranslations } from 'next-intl'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import supabaseClient from '@/lib/supabaseClient'
+import { toast } from 'sonner'
 
 export function EarlyAccessDrawer() {
   const t = useTranslations('Landing')
@@ -56,7 +55,7 @@ export function EarlyAccessDrawer() {
               {t('early_access_description')}
             </DialogDescription>
           </DialogHeader>
-          <EarlyAccessForm />
+          <EarlyAccessForm setOpen={setOpen} />
         </DialogContent>
       </Dialog>
     )
@@ -67,12 +66,12 @@ export function EarlyAccessDrawer() {
       <DrawerTrigger asChild>
         <Button>{t('early_access')}</Button>
       </DrawerTrigger>
-      <DrawerContent className="sm:max-w-[650px]">
+      <DrawerContent className="">
         <DrawerHeader className="text-left">
           <DrawerTitle>{t('early_access')}</DrawerTitle>
           <DrawerDescription>{t('early_access_description')}</DrawerDescription>
         </DrawerHeader>
-        <EarlyAccessForm className="px-4" />
+        <EarlyAccessForm setOpen={setOpen} />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">{t('close_drawer')}</Button>
@@ -83,7 +82,7 @@ export function EarlyAccessDrawer() {
   )
 }
 
-function EarlyAccessForm({ className }: React.ComponentProps<'form'>) {
+function EarlyAccessForm({ setOpen }: { setOpen: (value: boolean) => void }) {
   const t = useTranslations('Landing')
   const schema = z.object({
     name: z.string().min(1, { message: t('name_required') }),
@@ -98,8 +97,25 @@ function EarlyAccessForm({ className }: React.ComponentProps<'form'>) {
     },
   })
 
-  const onSubmit = (data: z.infer<typeof schema>) => {
-    console.log(data)
+  const onSubmit = async (data: z.infer<typeof schema>) => {
+    const { error } = await supabaseClient()
+      .from('early_access_submissions')
+      .insert(data)
+
+    if (!error) {
+      toast.success(t('early_access_submission_sent'))
+      setOpen(false)
+      return
+    }
+
+    if (error?.message.includes('duplicate')) {
+      toast.error(t('early_access_submission_duplicate'))
+      return
+    }
+
+    if (error) {
+      toast.error(t('early_access_submission_error'))
+    }
   }
 
   return (
@@ -134,9 +150,11 @@ function EarlyAccessForm({ className }: React.ComponentProps<'form'>) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full px-0 px-12 md:w-auto">
-          {t('submit_button')}
-        </Button>
+        <div className="flex justify-end">
+          <Button type="submit" className="w-full px-12 text-right md:w-auto">
+            {t('submit_button')}
+          </Button>
+        </div>
       </form>
     </Form>
   )

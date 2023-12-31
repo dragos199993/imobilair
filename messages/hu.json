@@ -9,7 +9,14 @@
     "email_label": "E-mail",
     "name_required": "A név kötelező",
     "submit_button": "Küldés",
-    "close_drawer": "Bezárás"
+    "close_drawer": "Bezárás",
+    "early_access_submission_sent": "Köszönjük a jelentkezésedet! Azonnal felvesszük veled a kapcsolatot, amint az alkalmazás elérhető lesz. Maradj velünk az izgalmas hírekért!",
+    "early_access_submission_duplicate": "Hoppá! Ez az e-mail cím már regisztrálva van a rendszerünkben. Kérjük, próbálkozz másik e-mail címmel.",
+    "early_access_submission_error": "Sajnáljuk, hiba lépett fel a regisztráció folyamatában. Kérjük, próbálkozz később újra, vagy lépj kapcsolatba velünk segítségért.",
+    "theme_dark": "Sötét mód",
+    "theme_light": "Világos mód",
+    "theme_system": "Rendszer mód",
+    "choose_theme": "Válassz témát"
   },
   "LocaleSwitcher": {
     "ro": "Román",

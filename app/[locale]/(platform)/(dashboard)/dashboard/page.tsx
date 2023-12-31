@@ -1,4 +1,3 @@
-import supabaseClient from '@/lib/supabaseClient'
 import { auth, currentUser } from '@clerk/nextjs'
 import EventCard from './_components/event-card'
 import { Button, buttonVariants } from '@/components/ui/button'

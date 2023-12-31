@@ -10,19 +10,19 @@ export const Navbar = () => {
   const messages = useMessages()
 
   return (
-    <nav className="container flex flex-row flex-wrap items-center justify-between gap-5 px-4 py-8 sm:p-8">
-      <Logo />
-      <div className="hidden flex-row gap-4 sm:flex">
-        <NextIntlClientProvider messages={pick(messages, 'Landing')}>
+    <NextIntlClientProvider messages={pick(messages, 'Landing')}>
+      <nav className="container flex flex-row flex-wrap items-center justify-between gap-5 px-4 py-8 sm:p-8">
+        <Logo />
+        <div className="hidden flex-row gap-4 sm:flex">
           <EarlyAccessDrawer />
-        </NextIntlClientProvider>
-        <LanguageSwitcher />
-        <ModeToggle />
-      </div>
-      <div className="flex gap-4 sm:hidden">
-        <MobileNav />
-        <ModeToggle />
-      </div>
-    </nav>
+          <LanguageSwitcher />
+          <ModeToggle />
+        </div>
+        <div className="flex gap-4 sm:hidden">
+          <MobileNav />
+          <ModeToggle />
+        </div>
+      </nav>
+    </NextIntlClientProvider>
   )
 }

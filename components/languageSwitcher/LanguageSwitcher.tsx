@@ -16,7 +16,7 @@ export default function LanguageSwitcher() {
   return (
     <>
       <LanguageSwitcherSelect defaultValue={locale}>
-        <SelectTrigger className="w-full sm:w-[140px]">
+        <SelectTrigger className="w-full sm:w-[140px]" aria-label={t(locale)}>
           <SelectValue placeholder="Select a fruit" />
         </SelectTrigger>
         <SelectContent>
