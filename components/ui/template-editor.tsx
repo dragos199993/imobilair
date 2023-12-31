@@ -1,10 +1,10 @@
 import { z } from 'zod'
-import { formSchema } from '../../app/(platform)/(dashboard)/dashboard/new/_components/new-event-form'
 import { FC } from 'react'
 import dayjs, { Dayjs } from 'dayjs'
 import { useFormContext } from 'react-hook-form'
 import { cn, fontFamilyMapping } from '@/lib/utils'
 import { EditorBar } from './editor/EditorBar'
+import { formSchema } from '@/app/[locale]/(platform)/(dashboard)/dashboard/new/_components/new-event-form'
 
 type Props = z.infer<typeof formSchema>
 

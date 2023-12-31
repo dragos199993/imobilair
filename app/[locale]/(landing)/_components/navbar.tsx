@@ -1,10 +1,10 @@
 import { Logo } from '@/components/ui/logo'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
-import { EarlyAccessDrawer } from '@/app/(landing)/[locale]/_components/EarlyAccessDrawer'
+import { EarlyAccessDrawer } from '@/app/[locale]/(landing)/_components/EarlyAccessDrawer'
 import LanguageSwitcher from '@/components/languageSwitcher/LanguageSwitcher'
 import pick from 'lodash/pick'
-import { MobileNav } from '@/app/(landing)/[locale]/_components/MobileNav'
+import { MobileNav } from '@/app/[locale]/(landing)/_components/MobileNav'
 
 export const Navbar = () => {
   const messages = useMessages()

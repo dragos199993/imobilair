@@ -32,7 +32,6 @@ import { z } from 'zod'
 import { formSchema } from '../new/_components/new-event-form'
 import { HTTP_TYPE } from '@/lib/utils'
 import { deleteEvent, updateEventsLimit } from '@/supabase/mutations'
-import { TemplateView } from '@/app/(platform)/(invite)/[locale]/test/_components/template-view'
 
 type Props = {
   event: z.infer<typeof formSchema> & { id: string; slug: string }
@@ -109,9 +108,7 @@ const EventCard: FC<Props> = ({ event }) => {
         <CardContent className="max-h-[240px] cursor-pointer overflow-y-auto">
           <Link
             href={`${HTTP_TYPE}${event.slug}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`}
-          >
-            <TemplateView {...event} />
-          </Link>
+          ></Link>
         </CardContent>
       </Card>
 
