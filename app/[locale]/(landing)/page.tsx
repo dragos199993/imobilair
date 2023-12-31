@@ -3,6 +3,7 @@ import { HeroVideo } from '@/app/[locale]/(landing)/_components/HeroVideo'
 import pick from 'lodash/pick'
 import { EarlyAccessDrawer } from '@/app/[locale]/(landing)/_components/EarlyAccessDrawer'
 import { GoogleTagManager } from '@next/third-parties/google'
+import Script from 'next/script'
 
 export default function Home() {
   const t = useTranslations('Landing')
@@ -12,6 +13,22 @@ export default function Home() {
     <>
       {process.env.NEXT_PUBLIC_GTM_ID && (
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+      )}
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          />
+          <Script id="google-analytics">
+            {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', ${process.env.NEXT_PUBLIC_GA_ID});
+        `}
+          </Script>
+        </>
       )}
       <section className="px-12 text-center sm:p-0 sm:px-6">
         <h1 className="mb-4 mt-4 scroll-m-20 text-4xl font-extrabold tracking-tight sm:mt-20 lg:text-5xl">
