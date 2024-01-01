@@ -20,6 +20,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { checkSubscription } from '@/lib/subscription'
+import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
 
 export default async function Home() {
   const { getToken } = auth()
@@ -37,12 +38,10 @@ export default async function Home() {
 
   return (
     <TooltipProvider>
-      <section className="flex h-[600px]  flex-col px-4">
-        <div className="mt-6 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-          <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-3xl">
-            Evenimentele mele
-          </h1>
-          <div className="flex items-center gap-3">
+      <DashboardLayout
+        title="Evenimentele mele"
+        actions={
+          <>
             <Button asChild>
               <Link
                 href={routes.NEW_EVENT}
@@ -73,38 +72,43 @@ export default async function Home() {
                 </TooltipTrigger>
               </Tooltip>
             )}
-          </div>
-        </div>
-        {events?.length === 0 && (
-          <div className="flex h-full w-full flex-col items-center justify-center">
-            <p className="text-2xl font-bold">Nu ai creat niciun eveniment.</p>
-            <Button className="mt-2">
-              <Link href={routes.NEW_EVENT}>Adauga un eveniment</Link>
-            </Button>
-          </div>
-        )}
-        <div className="mt-12 grid grid-cols-1 gap-8 pb-16 md:grid-cols-2">
-          {events?.map((event: any) => (
-            <EventCard event={event} key={event.id} />
-          ))}
-          {!isPro && limitExceeded && (
-            <Card className="flex flex-col items-center justify-center">
-              <CardHeader className="relative">
-                <CardTitle className="cursor-pointer">
-                  Ai atins limita de evenimente gratuite.
-                </CardTitle>
-              </CardHeader>
-              <CardDescription>
-                <Button className="mt-2">
-                  <Link href={`${routes.HOME}#pricing`}>
-                    Achizitioneaza planul PRO+
-                  </Link>
-                </Button>
-              </CardDescription>
-            </Card>
+          </>
+        }
+      >
+        <section className="flex h-[600px]  flex-col px-6">
+          {events?.length === 0 && (
+            <div className="flex h-full w-full flex-col items-center justify-center">
+              <p className="text-2xl font-bold">
+                Nu ai creat niciun eveniment.
+              </p>
+              <Button className="mt-2">
+                <Link href={routes.NEW_EVENT}>Adauga un eveniment</Link>
+              </Button>
+            </div>
           )}
-        </div>
-      </section>
+          <div className="mt-12 grid grid-cols-1 gap-8 pb-16 md:grid-cols-2">
+            {events?.map((event: any) => (
+              <EventCard event={event} key={event.id} />
+            ))}
+            {!isPro && limitExceeded && (
+              <Card className="flex flex-col items-center justify-center">
+                <CardHeader className="relative">
+                  <CardTitle className="cursor-pointer">
+                    Ai atins limita de evenimente gratuite.
+                  </CardTitle>
+                </CardHeader>
+                <CardDescription>
+                  <Button className="mt-2">
+                    <Link href={`${routes.HOME}#pricing`}>
+                      Achizitioneaza planul PRO+
+                    </Link>
+                  </Button>
+                </CardDescription>
+              </Card>
+            )}
+          </div>
+        </section>
+      </DashboardLayout>
     </TooltipProvider>
   )
 }

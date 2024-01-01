@@ -11,7 +11,7 @@ export const Navbar = () => {
   const messages = useMessages()
 
   return (
-    <nav className="flex h-16 items-center justify-center gap-5 bg-secondary px-4 md:justify-between">
+    <nav className="fixed z-40 flex h-16 w-full items-center justify-center gap-5 bg-secondary px-4 md:justify-between">
       <Logo />
       <div className="hidden items-center gap-4 md:flex">
         <UserButton afterSignOutUrl={routes.HOME} />

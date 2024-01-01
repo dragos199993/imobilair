@@ -1,30 +1,24 @@
 'use client'
 
-import { Home, Menu, Plus, Settings } from 'lucide-react'
+import { Home, LogOut, Menu, Plus, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
-import {
-  NextIntlClientProvider,
-  useLocale,
-  useMessages,
-  useTranslations,
-} from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from '@/lib/i18n'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { UserButton } from '@clerk/nextjs'
+import { SignOutButton, UserButton } from '@clerk/nextjs'
 import { routes } from '@/constants/routes'
 import LanguageSwitcher from '@/components/languageSwitcher/LanguageSwitcher'
-import pick from 'lodash/pick'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 
 const sidebarRoutes = [
   {
@@ -41,7 +35,7 @@ const sidebarRoutes = [
   },
   {
     icon: Settings,
-    href: '/settings',
+    href: '/dashboard/settings',
     label: 'sidebar_settings',
     pro: false,
   },
@@ -59,7 +53,7 @@ const SidebarRoot = ({ isDesktop = false, setSidebarOpen }: Props) => {
   const t = useTranslations('Dashboard')
 
   const onNavigate = (
-    url: '/dashboard' | '/dashboard/new' | '/settings',
+    url: '/dashboard' | '/dashboard/new' | '/dashboard/settings',
     pro: boolean
   ) => {
     // TODO: check if pro
@@ -103,10 +97,11 @@ const SidebarRoot = ({ isDesktop = false, setSidebarOpen }: Props) => {
 export const Sidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const isDesktop = useMediaQuery('(min-width: 768px)')
+  const t = useTranslations('Dashboard')
 
   if (isDesktop) {
     return (
-      <aside className="fixed inset-y-0 mt-16 hidden w-20 md:flex">
+      <aside className="fixed inset-y-0 z-50 mt-16 hidden w-20 md:flex">
         <SidebarRoot isDesktop={true} setSidebarOpen={setSidebarOpen} />
       </aside>
     )
@@ -114,7 +109,7 @@ export const Sidebar = () => {
 
   return (
     <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
-      <SheetTrigger className="absolute left-4 top-5">
+      <SheetTrigger className="absolute left-4 top-5 z-50 block md:hidden">
         <Menu className="h-6 w-6" />
       </SheetTrigger>
       <SheetContent side="left" className="h-full w-[300px]">
@@ -124,7 +119,20 @@ export const Sidebar = () => {
           </SheetTitle>
           <div className="flex h-full flex-col justify-between">
             <SidebarRoot setSidebarOpen={setSidebarOpen} />
-            <div className="mt-6 flex gap-5">
+            <SignOutButton>
+              <Button className="mt-4" variant="destructive">
+                <div
+                  className={cn(
+                    'flex flex-1 items-center gap-y-2',
+                    isDesktop ? 'flex-col' : 'w-full flex-row gap-4'
+                  )}
+                >
+                  <LogOut className="h-5 w-5" />
+                  {t('sign_out')}
+                </div>
+              </Button>
+            </SignOutButton>
+            <div className="mt-4 flex gap-2">
               <LanguageSwitcher />
               <ModeToggle />
             </div>

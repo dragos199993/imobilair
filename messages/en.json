@@ -35,6 +35,7 @@
   "Dashboard": {
     "sidebar_home": "Home",
     "sidebar_create": "Create",
-    "sidebar_settings": "Settings"
+    "sidebar_settings": "Settings",
+    "sign_out": "Sign out"
   }
 }
