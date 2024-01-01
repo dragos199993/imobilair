@@ -1,10 +1,11 @@
 import { NextIntlClientProvider, useMessages, useTranslations } from 'next-intl'
 import { HeroVideo } from '@/app/[locale]/(landing)/_components/HeroVideo'
 import pick from 'lodash/pick'
-import { EarlyAccessDrawer } from '@/app/[locale]/(landing)/_components/EarlyAccessDrawer'
 import { GoogleTagManager } from '@next/third-parties/google'
 import Script from 'next/script'
-import { Badge } from '@/components/ui/badge'
+import { Link } from '@/lib/i18n'
+import { routes } from '@/constants/routes'
+import { Button } from '@/components/ui/button'
 
 export default function Home() {
   const t = useTranslations('Landing')
@@ -42,7 +43,9 @@ export default function Home() {
         </p>
         <NextIntlClientProvider messages={pick(messages, 'Landing')}>
           <div className="mb-16 w-full pt-2">
-            <EarlyAccessDrawer />
+            <Button asChild>
+              <Link href={routes.DASHBOARD}>{t('start_for_free')}</Link>
+            </Button>
           </div>
         </NextIntlClientProvider>
       </section>

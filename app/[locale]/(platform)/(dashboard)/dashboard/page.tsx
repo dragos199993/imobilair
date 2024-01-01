@@ -24,12 +24,16 @@ import { checkSubscription } from '@/lib/subscription'
 export default async function Home() {
   const { getToken } = auth()
   const user = await currentUser()
-  const token = await getToken({ template: 'nunta-noastra' })
+  // const token = await getToken({ template: 'nunta-noastra' })
+  //
+  // const { data: eventsLimit } = await getEventsLimit(token, user?.id)
+  // const { data: events } = await getEvents(token, user?.id)
+  // const limitExceeded = eventsLimit?.events_count >= MAX_FREE_EVENTS_LIMIT
+  // const isPro = await checkSubscription(token)
 
-  const { data: eventsLimit } = await getEventsLimit(token, user?.id)
-  const { data: events } = await getEvents(token, user?.id)
-  const limitExceeded = eventsLimit?.events_count >= MAX_FREE_EVENTS_LIMIT
-  const isPro = await checkSubscription(token)
+  const isPro = true
+  const limitExceeded = true
+  const events: any = []
 
   return (
     <TooltipProvider>
@@ -80,7 +84,9 @@ export default async function Home() {
           </div>
         )}
         <div className="mt-12 grid grid-cols-1 gap-8 pb-16 md:grid-cols-2">
-          {events?.map((event) => <EventCard event={event} key={event.id} />)}
+          {events?.map((event: any) => (
+            <EventCard event={event} key={event.id} />
+          ))}
           {!isPro && limitExceeded && (
             <Card className="flex flex-col items-center justify-center">
               <CardHeader className="relative">

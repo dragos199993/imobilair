@@ -16,7 +16,8 @@
     "theme_dark": "Dark",
     "theme_light": "Light",
     "theme_system": "System",
-    "choose_theme": "Choose Theme"
+    "choose_theme": "Choose Theme",
+    "start_for_free": "Start for free"
   },
   "LocaleSwitcher": {
     "en": "English",

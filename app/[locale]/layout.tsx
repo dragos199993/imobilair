@@ -2,10 +2,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '../globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
-import { ClerkProvider } from '@clerk/nextjs'
-import { dark } from '@clerk/themes'
 import { Toaster } from '@/components/ui/sonner'
 import Head from 'next/head'
+import { CustomClerkProvider } from '@/components/providers/CustomClerkProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,20 +29,14 @@ export default function RootLayout({
         <meta name="robots" content="NOINDEX, NOFOLLOW" />
       </Head>
       <body className={inter.className}>
-        <ClerkProvider
-          appearance={{
-            baseTheme: dark,
-          }}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </ClerkProvider>
+          <CustomClerkProvider locale={locale}>{children}</CustomClerkProvider>
+        </ThemeProvider>
         <Toaster richColors position="top-center" />
       </body>
     </html>
