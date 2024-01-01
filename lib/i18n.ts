@@ -6,15 +6,11 @@ import {
   Pathnames,
 } from 'next-intl/navigation'
 
-export const locales = ['ro', 'hu'] as const
+export const locales = ['en', 'ro'] as const
 export const localePrefix = undefined
 
 export const pathnames = {
   '/': '/',
-  '/pathnames': {
-    ro: '/nume-de-cale',
-    hu: '/utvonalak',
-  },
 } satisfies Pathnames<typeof locales>
 
 export default getRequestConfig(async ({ locale }) => {

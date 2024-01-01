@@ -3,17 +3,17 @@ import createMiddleware from 'next-intl/middleware'
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
-  locales: ['ro', 'hu'],
+  locales: ['en', 'ro', 'hu'],
 
   // Used when no locale matches
-  defaultLocale: 'ro',
+  defaultLocale: 'en',
 })
 
 // This example protects all routes including api/trpc routes
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 export default authMiddleware({
-  publicRoutes: ['/', '/ro', '/hu', '/invite/:id', '/api/webhook'],
+  publicRoutes: ['/', '/en', '/ro', '/hu', '/invite/:id', '/api/webhook'],
   beforeAuth: (req) => {
     // Execute next-intl middleware before Clerk's auth middleware
     return intlMiddleware(req)
@@ -39,6 +39,6 @@ export const config = {
     '/((?!.+\\.[\\w]+$|_next).*)',
     '/',
     '/(api|trpc)(.*)',
-    '/(ro|hu)/:path*',
+    '/(en|ro|hu)/:path*',
   ],
 }
