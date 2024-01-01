@@ -4,7 +4,6 @@ import '../globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 import Head from 'next/head'
-import { CustomClerkProvider } from '@/components/providers/CustomClerkProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -35,7 +34,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <CustomClerkProvider locale={locale}>{children}</CustomClerkProvider>
+          {children}
         </ThemeProvider>
         <Toaster richColors position="top-center" />
       </body>

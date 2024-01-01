@@ -15,6 +15,8 @@ export const pathnames = {
     en: '/dashboard',
     ro: '/dashboard',
   },
+  '/dashboard/new': '/dashboard/new',
+  '/settings': '/settings',
 } satisfies Pathnames<typeof locales>
 
 export default getRequestConfig(async ({ locale }) => {

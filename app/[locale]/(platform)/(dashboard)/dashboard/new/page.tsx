@@ -1,11 +1,8 @@
-import { checkSubscription } from '@/lib/subscription'
 import NewEventForm from './_components/new-event-form'
 import { auth } from '@clerk/nextjs'
 
 export default async function Home() {
   const { getToken } = auth()
-  const token = await getToken({ template: 'nunta-noastra' })
-  const isPro = await checkSubscription(token)
 
   return (
     <section className="container flex  h-[600px] flex-col">
@@ -14,7 +11,7 @@ export default async function Home() {
           Despre evenimentul tau:
         </h1>
       </div>
-      <NewEventForm isPro={isPro} />
+      <NewEventForm isPro={false} />
     </section>
   )
 }

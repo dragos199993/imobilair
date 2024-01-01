@@ -11,10 +11,9 @@ export const Navbar = () => {
   const messages = useMessages()
 
   return (
-    <nav className="flex justify-between gap-5 p-8 px-4 md:container">
+    <nav className="flex h-16 items-center justify-center gap-5 bg-secondary px-4 md:justify-between">
       <Logo />
-      <div className="flex items-center gap-4">
-        <Badge>Beta</Badge>
+      <div className="hidden items-center gap-4 md:flex">
         <UserButton afterSignOutUrl={routes.HOME} />
         <LanguageSwitcher />
 

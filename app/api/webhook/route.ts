@@ -34,7 +34,6 @@ export async function POST(req: Request) {
       return new NextResponse('Missing metadata', { status: 400 })
     }
 
-    console.log(token)
     try {
       const { data, error } = await supabaseClient(token)
         .from('subscriptions')

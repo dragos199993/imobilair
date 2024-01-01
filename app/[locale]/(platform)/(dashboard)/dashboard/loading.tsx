@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function Loading() {
   return (
-    <section className="flex h-[600px]  flex-col px-4 md:container">
+    <section className="flex h-[600px]  flex-col px-4">
       <div className="mt-6 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
         <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-3xl">
           Evenimentele mele

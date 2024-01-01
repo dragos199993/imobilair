@@ -1,15 +1,28 @@
-import type { Metadata } from 'next'
 import '../../globals.css'
+import { getTranslations } from 'next-intl/server'
+import { CustomClerkProvider } from '@/components/providers/CustomClerkProvider'
 
-export const metadata: Metadata = {
-  title: 'Nunta Noastra',
-  description: 'Genereaza invitatii pentru nunta ta',
+type MetaProps = {
+  params: {
+    locale: string
+  }
 }
 
-export default function RootLayout({
+export async function generateMetadata({ params: { locale } }: MetaProps) {
+  const t = await getTranslations({ locale, namespace: 'Metadata' })
+
+  return {
+    title: `${process.env.NEXT_PUBLIC_APP_NAME} | ${t('dashboard_title')}`,
+    description: t('dashboard_title'),
+  }
+}
+
+export default function PlatformLayour({
   children,
+  params: { locale },
 }: {
   children: React.ReactNode
+  params: { locale: string }
 }) {
-  return children
+  return <CustomClerkProvider locale={locale}>{children}</CustomClerkProvider>
 }

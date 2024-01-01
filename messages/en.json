@@ -26,5 +26,15 @@
   },
   "Footer": {
     "all_rights_reserved": "All Rights Reserved"
+  },
+  "Metadata": {
+    "landing_description": "Real estate AI agents.",
+    "dashboard_title": "Dashboard",
+    "dashboard_description": "Control all your properties with the help of AI."
+  },
+  "Dashboard": {
+    "sidebar_home": "Home",
+    "sidebar_create": "Create",
+    "sidebar_settings": "Settings"
   }
 }

@@ -26,5 +26,15 @@
   },
   "Footer": {
     "all_rights_reserved": "Toate drepturile rezervate"
+  },
+  "Metadata": {
+    "landing_description": "Inteligența artificială în sprijinul agenților imobiliari",
+    "dashboard_title": "Tablou de bord",
+    "dashboard_description": "Administrează anunțurile tale imobiliare cu ajutorul inteligenței artificiale"
+  },
+  "Dashboard": {
+    "sidebar_home": "Acasă",
+    "sidebar_create": "Adaugă",
+    "sidebar_settings": "Setări"
   }
 }
