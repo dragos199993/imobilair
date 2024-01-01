@@ -4,6 +4,7 @@ import pick from 'lodash/pick'
 import { EarlyAccessDrawer } from '@/app/[locale]/(landing)/_components/EarlyAccessDrawer'
 import { GoogleTagManager } from '@next/third-parties/google'
 import Script from 'next/script'
+import { Badge } from '@/components/ui/badge'
 
 export default function Home() {
   const t = useTranslations('Landing')

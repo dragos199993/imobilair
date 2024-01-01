@@ -10,7 +10,7 @@
     "name_required": "Numele este obligatoriu",
     "submit_button": "Trimite",
     "close_drawer": "Închide",
-    "early_access_submission_sent": "Îți mulțumim pentru înscriere! Vom fi în legătură cu tine imediat ce aplicația va fi lansată, așa că stai aproape pentru noutăți!",
+    "early_access_submission_sent": "Îți mulțumim pentru înscriere! Vom fi în legătură cu tine, așa că stai aproape pentru noutăți!",
     "early_access_submission_duplicate": "Oops! Această adresă de email a fost deja înregistrată în sistem. Vă rugăm să încercați cu o altă adresă de email.",
     "early_access_submission_error": "Ne pare rău, a apărut o eroare în timpul procesului de înscriere. Vă rugăm să încercați din nou mai târziu sau să ne contactați pentru asistență.",
     "theme_dark": "Mod Nocturn",
@@ -19,6 +19,7 @@
     "choose_theme": "Alege tema"
   },
   "LocaleSwitcher": {
+    "en": "Engleză",
     "ro": "Română",
     "hu": "Maghiară"
   },

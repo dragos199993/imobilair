@@ -1,0 +1,29 @@
+{
+  "Landing": {
+    "hero_title": "Effectively sell real estate properties.",
+    "hero_description": "For every listing published, you receive a chatbot that answers questions and sends you notifications when someone is interested in the property.",
+    "early_access": "Get Early Access",
+    "early_access_description": "We will get in touch to provide access on alpha version of the application.",
+    "name_label": "Name",
+    "email_invalid": "Invalid Email",
+    "email_label": "Email",
+    "name_required": "Name is required",
+    "submit_button": "Submit",
+    "close_drawer": "Close",
+    "early_access_submission_sent": "Thank you for signing up! We will be in touch with you, so stay tuned for updates!",
+    "early_access_submission_duplicate": "Oops! This email address has already been registered in the system. Please try with a different email address.",
+    "early_access_submission_error": "We're sorry, an error occurred during the registration process. Please try again later or contact us for assistance.",
+    "theme_dark": "Dark",
+    "theme_light": "Light",
+    "theme_system": "System",
+    "choose_theme": "Choose Theme"
+  },
+  "LocaleSwitcher": {
+    "en": "English",
+    "ro": "Romanian",
+    "hu": "Hungarian"
+  },
+  "Footer": {
+    "all_rights_reserved": "All Rights Reserved"
+  }
+}
