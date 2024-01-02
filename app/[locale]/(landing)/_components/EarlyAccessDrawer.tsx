@@ -1,5 +1,4 @@
 'use client'
-import * as React from 'react'
 
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { Button } from '@/components/ui/button'
@@ -34,12 +33,14 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import supabaseClient from '@/lib/supabaseClient'
 import { toast } from 'sonner'
+import { createEarlyAccessSubmission } from '@/actions/createEarlyAccessSubmission'
+import { Loader2 } from 'lucide-react'
+import { useState } from 'react'
 
 export function EarlyAccessDrawer() {
   const t = useTranslations('Landing')
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   const isDesktop = useMediaQuery('(min-width: 768px)')
 
   if (isDesktop) {
@@ -98,23 +99,25 @@ function EarlyAccessForm({ setOpen }: { setOpen: (value: boolean) => void }) {
   })
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
-    const { error } = await supabaseClient()
-      .from('early_access_submissions')
-      .insert(data)
-
-    if (!error) {
+    try {
+      await createEarlyAccessSubmission(data)
       toast.success(t('early_access_submission_sent'))
       setOpen(false)
-      return
-    }
+    } catch (error: any) {
+      if (!error) {
+        toast.success(t('early_access_submission_sent'))
+        setOpen(false)
+        return
+      }
 
-    if (error?.message.includes('duplicate')) {
-      toast.error(t('early_access_submission_duplicate'))
-      return
-    }
+      if (error?.message?.includes('Unique')) {
+        toast.error(t('early_access_submission_duplicate'))
+        return
+      }
 
-    if (error) {
-      toast.error(t('early_access_submission_error'))
+      if (error) {
+        toast.error(t('early_access_submission_error'))
+      }
     }
   }
 
@@ -151,7 +154,14 @@ function EarlyAccessForm({ setOpen }: { setOpen: (value: boolean) => void }) {
           )}
         />
         <div className="flex justify-end">
-          <Button type="submit" className="w-full px-12 text-right md:w-auto">
+          <Button
+            type="submit"
+            className="w-full px-12 text-right md:w-auto"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting && (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            )}
             {t('submit_button')}
           </Button>
         </div>

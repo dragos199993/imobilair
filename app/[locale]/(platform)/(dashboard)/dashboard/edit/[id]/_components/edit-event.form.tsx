@@ -68,7 +68,6 @@ const EditEventForm: FC<Props> = ({
       })
       .eq('id', id)
       .select()
-    console.log(data)
 
     if (!error) {
       router.push(routes.DASHBOARD)

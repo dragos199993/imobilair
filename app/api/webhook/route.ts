@@ -49,8 +49,6 @@ export async function POST(req: Request) {
           },
         ])
         .select()
-
-      console.log(error)
     } catch (error) {
       console.log(error)
     }
