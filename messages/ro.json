@@ -16,7 +16,8 @@
     "theme_dark": "Mod Nocturn",
     "theme_light": "Mod Luminos",
     "theme_system": "Mod Automat",
-    "choose_theme": "Alege tema"
+    "choose_theme": "Alege tema",
+    "start_for_free": "Incepe gratuit"
   },
   "LocaleSwitcher": {
     "en": "Engleză",
@@ -25,5 +26,16 @@
   },
   "Footer": {
     "all_rights_reserved": "Toate drepturile rezervate"
+  },
+  "Metadata": {
+    "landing_description": "Inteligența artificială în sprijinul agenților imobiliari",
+    "dashboard_title": "Tablou de bord",
+    "dashboard_description": "Administrează anunțurile tale imobiliare cu ajutorul inteligenței artificiale"
+  },
+  "Dashboard": {
+    "sidebar_home": "Acasă",
+    "sidebar_create": "Adaugă",
+    "sidebar_settings": "Setări",
+    "sign_out": "Deconectați-vă "
   }
 }

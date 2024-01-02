@@ -1,99 +1,144 @@
 'use client'
 
-import Link from 'next/link'
-import { Plus } from 'lucide-react'
-import { useLocalStorage } from 'usehooks-ts'
-import { useOrganization, useOrganizationList } from '@clerk/nextjs'
-
+import { LayoutDashboard, LogOut, Menu, Plus, Settings } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
+import { useRouter } from '@/lib/i18n'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
+import { SignOutButton, UserButton } from '@clerk/nextjs'
+import { routes } from '@/constants/routes'
+import LanguageSwitcher from '@/components/languageSwitcher/LanguageSwitcher'
+import { ModeToggle } from '@/components/ui/mode-toggle'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Skeleton } from '@/components/ui/skeleton'
-import { Accordion } from '@/components/ui/accordion'
 
-import { NavItem, Organization } from './nav-item'
+const sidebarRoutes = [
+  {
+    icon: LayoutDashboard,
+    href: '/dashboard',
+    label: 'sidebar_home',
+    pro: false,
+  },
+  {
+    icon: Plus,
+    href: '/dashboard/new',
+    label: 'sidebar_create',
+    pro: false,
+  },
+  {
+    icon: Settings,
+    href: '/dashboard/settings',
+    label: 'sidebar_settings',
+    pro: false,
+  },
+] as const
 
-interface SidebarProps {
-  storageKey?: string
+type Props = {
+  setSidebarOpen: (value: boolean) => void
+  isDesktop?: boolean
 }
 
-export const Sidebar = ({ storageKey = 't-sidebar-state' }: SidebarProps) => {
-  const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(
-    storageKey,
-    {}
-  )
+const SidebarRoot = ({ isDesktop = false, setSidebarOpen }: Props) => {
+  const pathname = usePathname()
+  const locale = useLocale()
+  const router = useRouter()
+  const t = useTranslations('Dashboard')
 
-  const { organization: activeOrganization, isLoaded: isLoadedOrg } =
-    useOrganization()
-  const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList({
-    userMemberships: {
-      infinite: true,
-    },
-  })
+  const onNavigate = (
+    url: '/dashboard' | '/dashboard/new' | '/dashboard/settings',
+    pro: boolean
+  ) => {
+    // TODO: check if pro
 
-  const defaultAccordionValue: string[] = Object.keys(expanded).reduce(
-    (acc: string[], key: string) => {
-      if (expanded[key]) {
-        acc.push(key)
-      }
-
-      return acc
-    },
-    []
-  )
-
-  const onExpand = (id: string) => {
-    setExpanded((curr) => ({
-      ...curr,
-      [id]: !expanded[id],
-    }))
+    router.push(url)
+    setSidebarOpen(false)
   }
 
-  if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
+  return (
+    <div className="flex h-full flex-col space-y-2 bg-background md:bg-secondary">
+      <div className="flex flex-1 justify-center px-0 py-3 md:p-3">
+        <div className={cn('space-y-2', !isDesktop && 'w-full')}>
+          {sidebarRoutes.map((route) => (
+            <div
+              onClick={() => onNavigate(route.href, route.pro)}
+              key={route.href}
+              className={cn(
+                'group flex cursor-pointer  justify-start rounded-lg p-3 text-xs font-medium ',
+                'text-muted-foreground transition hover:bg-primary/10 hover:text-primary',
+                pathname === `/${locale}${route.href}` &&
+                  'bg-primary/10 text-primary'
+              )}
+            >
+              <div
+                className={cn(
+                  'flex flex-1 items-center gap-y-2',
+                  isDesktop ? 'flex-col' : 'w-full flex-row gap-4'
+                )}
+              >
+                <route.icon className="h-5 w-5" />
+                {t(route.label)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Sidebar = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const isDesktop = useMediaQuery('(min-width: 768px)')
+  const t = useTranslations('Dashboard')
+
+  if (isDesktop) {
     return (
-      <>
-        <div className="mb-2 flex items-center justify-between">
-          <Skeleton className="h-10 w-[50%]" />
-          <Skeleton className="h-10 w-10" />
-        </div>
-        <div className="space-y-2">
-          <NavItem.Skeleton />
-          <NavItem.Skeleton />
-          <NavItem.Skeleton />
-        </div>
-      </>
+      <aside className="fixed inset-y-0 z-50 mt-16 hidden w-20 md:flex">
+        <SidebarRoot isDesktop={true} setSidebarOpen={setSidebarOpen} />
+      </aside>
     )
   }
 
   return (
-    <>
-      <div className="mb-1 flex items-center text-xs font-medium">
-        <span className="pl-4">Workspaces</span>
-        <Button
-          asChild
-          type="button"
-          size="icon"
-          variant="ghost"
-          className="ml-auto"
-        >
-          <Link href="/select-org">
-            <Plus className="h-4 w-4" />
-          </Link>
-        </Button>
-      </div>
-      <Accordion
-        type="multiple"
-        defaultValue={defaultAccordionValue}
-        className="space-y-2"
-      >
-        {userMemberships.data.map(({ organization }) => (
-          <NavItem
-            key={organization.id}
-            isActive={activeOrganization?.id === organization.id}
-            isExpanded={expanded[organization.id]}
-            organization={organization as Organization}
-            onExpand={onExpand}
-          />
-        ))}
-      </Accordion>
-    </>
+    <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
+      <SheetTrigger className="absolute left-4 top-5 z-50 block md:hidden">
+        <Menu className="h-6 w-6" />
+      </SheetTrigger>
+      <SheetContent side="left" className="h-full w-[300px]">
+        <SheetHeader>
+          <SheetTitle>
+            <UserButton afterSignOutUrl={routes.HOME} showName={true} />
+          </SheetTitle>
+          <div className="flex h-full flex-col justify-between">
+            <SidebarRoot setSidebarOpen={setSidebarOpen} />
+            <SignOutButton>
+              <Button className="mt-4" variant="destructive">
+                <div
+                  className={cn(
+                    'flex flex-1 items-center gap-y-2',
+                    isDesktop ? 'flex-col' : 'w-full flex-row gap-4'
+                  )}
+                >
+                  <LogOut className="h-5 w-5" />
+                  {t('sign_out')}
+                </div>
+              </Button>
+            </SignOutButton>
+            <div className="mt-4 flex gap-2">
+              <LanguageSwitcher />
+              <ModeToggle />
+            </div>
+          </div>
+        </SheetHeader>
+      </SheetContent>
+    </Sheet>
   )
 }

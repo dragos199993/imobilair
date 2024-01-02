@@ -16,7 +16,8 @@
     "theme_dark": "Dark",
     "theme_light": "Light",
     "theme_system": "System",
-    "choose_theme": "Choose Theme"
+    "choose_theme": "Choose Theme",
+    "start_for_free": "Start for free"
   },
   "LocaleSwitcher": {
     "en": "English",
@@ -25,5 +26,18 @@
   },
   "Footer": {
     "all_rights_reserved": "All Rights Reserved"
+  },
+  "Metadata": {
+    "landing_description": "Real estate AI agents.",
+    "dashboard_title": "Dashboard",
+    "dashboard_description": "Control all your properties with the help of AI."
+  },
+  "Dashboard": {
+    "sidebar_home": "Home",
+    "sidebar_create": "Create",
+    "sidebar_settings": "Settings",
+    "sign_out": "Sign out",
+    "your_listings": "Your listings",
+    "add_listing": "Add new"
   }
 }

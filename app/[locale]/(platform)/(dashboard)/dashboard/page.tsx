@@ -1,77 +1,38 @@
-import { auth, currentUser } from '@clerk/nextjs'
-import EventCard from './_components/event-card'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { routes } from '@/constants/routes'
-import { MAX_FREE_EVENTS_LIMIT } from '@/constants/general'
-import { cn } from '@/lib/utils'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { Info } from 'lucide-react'
-import { getEvents, getEventsLimit } from '@/supabase/queries'
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { checkSubscription } from '@/lib/subscription'
+import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
+import { DashboardActions } from '@/app/[locale]/(platform)/(dashboard)/_components/dashboardActions'
+import prismadb from '@/lib/prisma'
+import { auth } from '@clerk/nextjs'
 
 export default async function Home() {
-  const { getToken } = auth()
-  const user = await currentUser()
-  const token = await getToken({ template: 'nunta-noastra' })
+  const { userId } = auth()
+  // const user = await currentUser()
+  // const token = await getToken({ template: 'nunta-noastra' })
+  //
+  // const { data: eventsLimit } = await getEventsLimit(token, user?.id)
+  // const { data: events } = await getEvents(token, user?.id)
+  // const limitExceeded = eventsLimit?.events_count >= MAX_FREE_EVENTS_LIMIT
+  // const isPro = await checkSubscription(token)
 
-  const { data: eventsLimit } = await getEventsLimit(token, user?.id)
-  const { data: events } = await getEvents(token, user?.id)
-  const limitExceeded = eventsLimit?.events_count >= MAX_FREE_EVENTS_LIMIT
-  const isPro = await checkSubscription(token)
+  const isPro = true
+  const limitExceeded = true
+  const listings = await prismadb.listing.findMany({
+    where: { userId: userId ?? '' },
+  })
 
   return (
-    <TooltipProvider>
-      <section className="flex h-[600px]  flex-col px-4 md:container">
-        <div className="mt-6 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-          <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-3xl">
-            Evenimentele mele
-          </h1>
-          <div className="flex items-center gap-3">
-            <Button asChild>
-              <Link
-                href={routes.NEW_EVENT}
-                className={cn(
-                  buttonVariants({ variant: isPro ? 'default' : 'outline' }),
-                  !isPro && limitExceeded && 'pointer-events-none opacity-50'
-                )}
-              >
-                Adauga un eveniment
-              </Link>
-            </Button>
-            {!isPro && (
-              <Tooltip>
-                <TooltipContent>
-                  <p>
-                    Pentru a adauga un nou eveniment, trebuie sa achizionezi
-                    planul PRO+
-                  </p>
-                </TooltipContent>
-                <TooltipTrigger asChild>
-                  <Link
-                    href={`${routes.HOME}#pricing`}
-                    className="font-bold"
-                    target="_blank"
-                  >
-                    <Info className="cursor-pointer" />
-                  </Link>
-                </TooltipTrigger>
-              </Tooltip>
-            )}
-          </div>
-        </div>
-        {events?.length === 0 && (
+    <DashboardLayout title="your_listings" actions={<DashboardActions />}>
+      <section className="flex h-[600px]  flex-col">
+        {listings?.length === 0 && (
           <div className="flex h-full w-full flex-col items-center justify-center">
             <p className="text-2xl font-bold">Nu ai creat niciun eveniment.</p>
             <Button className="mt-2">
@@ -79,8 +40,20 @@ export default async function Home() {
             </Button>
           </div>
         )}
-        <div className="mt-12 grid grid-cols-1 gap-8 pb-16 md:grid-cols-2">
-          {events?.map((event) => <EventCard event={event} key={event.id} />)}
+        <div className="mt-12 grid grid-cols-1 gap-8 pb-16 md:grid-cols-3">
+          {listings?.map((listing) => (
+            <Card
+              className="flex flex-col items-center shadow-lg"
+              key={listing.id}
+            >
+              <CardHeader className="relative">
+                <CardTitle className="cursor-pointer">
+                  {listing.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>{listing.content}</CardContent>
+            </Card>
+          ))}
           {!isPro && limitExceeded && (
             <Card className="flex flex-col items-center justify-center">
               <CardHeader className="relative">
@@ -99,6 +72,6 @@ export default async function Home() {
           )}
         </div>
       </section>
-    </TooltipProvider>
+    </DashboardLayout>
   )
 }
