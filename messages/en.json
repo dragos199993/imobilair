@@ -36,6 +36,8 @@
     "sidebar_home": "Home",
     "sidebar_create": "Create",
     "sidebar_settings": "Settings",
-    "sign_out": "Sign out"
+    "sign_out": "Sign out",
+    "your_listings": "Your listings",
+    "add_listing": "Add new"
   }
 }

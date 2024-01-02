@@ -18,9 +18,13 @@ export const Navbar = () => {
       <nav className="container flex flex-row flex-wrap items-center justify-between gap-5 px-4 py-8 sm:p-8">
         <Logo />
         <div className="hidden flex-row gap-4 sm:flex">
-          <Button asChild>
-            <Link href={routes.DASHBOARD}>{t('start_for_free')}</Link>
-          </Button>
+          {process.env.NEXT_PUBLIC_IS_RELEASED === 'true' ? (
+            <Button asChild>
+              <Link href={routes.DASHBOARD}>{t('start_for_free')}</Link>
+            </Button>
+          ) : (
+            <EarlyAccessDrawer />
+          )}
           <LanguageSwitcher />
           <ModeToggle />
         </div>

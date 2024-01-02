@@ -1,6 +1,6 @@
 'use client'
 
-import { Home, LogOut, Menu, Plus, Settings } from 'lucide-react'
+import { LayoutDashboard, LogOut, Menu, Plus, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
@@ -22,7 +22,7 @@ import { Button } from '@/components/ui/button'
 
 const sidebarRoutes = [
   {
-    icon: Home,
+    icon: LayoutDashboard,
     href: '/dashboard',
     label: 'sidebar_home',
     pro: false,
@@ -63,8 +63,8 @@ const SidebarRoot = ({ isDesktop = false, setSidebarOpen }: Props) => {
   }
 
   return (
-    <div className="flex h-full flex-col space-y-2 bg-secondary">
-      <div className="flex flex-1 justify-center p-3">
+    <div className="flex h-full flex-col space-y-2 bg-background md:bg-secondary">
+      <div className="flex flex-1 justify-center px-0 py-3 md:p-3">
         <div className={cn('space-y-2', !isDesktop && 'w-full')}>
           {sidebarRoutes.map((route) => (
             <div

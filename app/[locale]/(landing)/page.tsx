@@ -6,6 +6,7 @@ import Script from 'next/script'
 import { Link } from '@/lib/i18n'
 import { routes } from '@/constants/routes'
 import { Button } from '@/components/ui/button'
+import { EarlyAccessDrawer } from '@/app/[locale]/(landing)/_components/EarlyAccessDrawer'
 
 export default function Home() {
   const t = useTranslations('Landing')
@@ -43,9 +44,13 @@ export default function Home() {
         </p>
         <NextIntlClientProvider messages={pick(messages, 'Landing')}>
           <div className="mb-16 w-full pt-2">
-            <Button asChild>
-              <Link href={routes.DASHBOARD}>{t('start_for_free')}</Link>
-            </Button>
+            {process.env.NEXT_PUBLIC_IS_RELEASED === 'true' ? (
+              <Button asChild>
+                <Link href={routes.DASHBOARD}>{t('start_for_free')}</Link>
+              </Button>
+            ) : (
+              <EarlyAccessDrawer />
+            )}
           </div>
         </NextIntlClientProvider>
       </section>

@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { routes } from '@/constants/routes'
@@ -7,7 +8,7 @@ import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
 export default function Loading() {
   return (
     <DashboardLayout
-      title="Evenimentele mele"
+      title="your_listings"
       actions={
         <Button asChild>
           <Link href={routes.NEW_EVENT}>Adauga un eveniment</Link>
