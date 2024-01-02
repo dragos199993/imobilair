@@ -12,7 +12,7 @@ CREATE TABLE "early_access_submission" (
 CREATE TABLE "listing" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "content" TEXT,
+    "content" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
 
     CONSTRAINT "listing_pkey" PRIMARY KEY ("id")

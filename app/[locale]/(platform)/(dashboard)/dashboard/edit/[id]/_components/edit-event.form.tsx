@@ -13,20 +13,17 @@ import { FormProvider, useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { useAuth, useSession } from '@clerk/nextjs'
-import supabaseClient from '@/lib/supabaseClient'
 import { useRouter } from 'next/navigation'
 import { routes } from '@/constants/routes'
 import { FC } from 'react'
 import { formSchema } from '../../../new/_components/new-event-form'
 import { Textarea } from '@/components/ui/textarea'
+import { updateListing } from '@/actions/update-listing'
 
 type Props = z.infer<typeof formSchema> & { id: string }
 
 const EditEventForm: FC<Props> = ({ id, title, content }) => {
   const router = useRouter()
-  const { session } = useSession()
-  const { getToken } = useAuth()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,16 +34,12 @@ const EditEventForm: FC<Props> = ({ id, title, content }) => {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const token = await getToken({ template: 'nunta-noastra' })
-
-    const { data, error } = await supabaseClient(token)
-      .from('events')
-      .update({
-        ...values,
-        user_id: session?.user.id,
-      })
-      .eq('id', id)
-      .select()
+    console.log({ id, title, content })
+    const { error } = await updateListing({
+      id,
+      title: values.title,
+      content: values.content,
+    })
 
     if (!error) {
       router.push(routes.DASHBOARD)
@@ -61,7 +54,7 @@ const EditEventForm: FC<Props> = ({ id, title, content }) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="mt-8 flex w-full gap-6"
         >
-          <div className="flex w-[240px] min-w-[240px] flex-col gap-4 space-y-8 pb-12">
+          <div className="flex w-full min-w-[240px] flex-col gap-4 space-y-8 pb-12">
             <FormField
               control={form.control}
               name="title"
@@ -89,7 +82,7 @@ const EditEventForm: FC<Props> = ({ id, title, content }) => {
                 </FormItem>
               )}
             />
-            <Button type="submit">Modifica evenimentul</Button>
+            <Button type="submit">Modifica anuntul</Button>
           </div>
         </form>
       </Form>

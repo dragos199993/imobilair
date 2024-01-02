@@ -20,6 +20,7 @@ import { routes } from '@/constants/routes'
 import { Textarea } from '@/components/ui/textarea'
 import { MAX_FREE_EVENTS_LIMIT } from '@/constants/general'
 import { createListing } from '@/actions/create-listing'
+import { Loader2 } from 'lucide-react'
 
 export const formSchema = z.object({
   title: z.string().min(2, {
@@ -43,6 +44,7 @@ function NewEventForm({ isPro }: { isPro: boolean }) {
     },
   })
 
+  const isSubmitting = form.formState.isSubmitting
   async function setLimit(token: string | null) {
     const { data: eventsLimit } = await supabaseClient(token)
       .from('events_limit')
@@ -128,7 +130,12 @@ function NewEventForm({ isPro }: { isPro: boolean }) {
                 </FormItem>
               )}
             />
-            <Button type="submit">Adauga anunt</Button>
+            <Button type="submit" aria-disabled={isSubmitting}>
+              {isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              Adauga anunt
+            </Button>
           </div>
         </form>
       </Form>
