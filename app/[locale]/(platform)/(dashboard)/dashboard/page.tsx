@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/card'
 import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
 import { DashboardActions } from '@/app/[locale]/(platform)/(dashboard)/_components/dashboardActions'
-import prismadb from '@/lib/prisma'
+import prismadb from '@/lib/db'
 import { auth } from '@clerk/nextjs'
 
 export default async function Home() {

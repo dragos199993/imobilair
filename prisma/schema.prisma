@@ -13,9 +13,9 @@ datasource db {
 
 model EarlyAccessSubmissions {
   id          String     @id @default(uuid())
-  created_at  DateTime
+  created_at  DateTime   @default(now())
   name        String
-  email       String
+  email       String     @unique
 }
 
 model Listing {
