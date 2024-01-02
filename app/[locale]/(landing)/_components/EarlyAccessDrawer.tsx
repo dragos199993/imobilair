@@ -37,6 +37,7 @@ import { toast } from 'sonner'
 import { createEarlyAccessSubmission } from '@/actions/createEarlyAccessSubmission'
 import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
+import { log } from 'node:util'
 
 export function EarlyAccessDrawer() {
   const t = useTranslations('Landing')
@@ -109,7 +110,7 @@ function EarlyAccessForm({ setOpen }: { setOpen: (value: boolean) => void }) {
         setOpen(false)
         return
       }
-
+      console.log(error?.message)
       if (error?.message?.includes('Unique')) {
         toast.error(t('early_access_submission_duplicate'))
         return
