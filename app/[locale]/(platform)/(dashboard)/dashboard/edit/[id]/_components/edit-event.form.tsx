@@ -26,8 +26,6 @@ import { useAuth, useSession } from '@clerk/nextjs'
 import supabaseClient from '@/lib/supabaseClient'
 import { useRouter } from 'next/navigation'
 import { routes } from '@/constants/routes'
-import { GradientGroup, GradientPicker } from '@/components/ui/gradient-picket'
-import { TemplateEditor } from '@/components/ui/template-editor'
 import { FC } from 'react'
 import { formSchema } from '../../../new/_components/new-event-form'
 import { Textarea } from '@/components/ui/textarea'
@@ -36,7 +34,6 @@ type Props = z.infer<typeof formSchema> & { id: string }
 
 const EditEventForm: FC<Props> = ({
   id,
-  customization,
   date,
   description,
   location,
@@ -51,7 +48,6 @@ const EditEventForm: FC<Props> = ({
     defaultValues: {
       name,
       date: dayjs(date).toDate(),
-      customization,
       description,
       location,
     },
@@ -168,34 +164,8 @@ const EditEventForm: FC<Props> = ({
                 )
               }}
             />
-            <FormField
-              control={form.control}
-              name="customization.background"
-              render={({ field }) => {
-                return (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Fundal</FormLabel>
-                    <FormControl>
-                      <GradientPicker
-                        background={field.value as GradientGroup}
-                        setBackground={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
             <Button type="submit">Modifica evenimentul</Button>
           </div>
-
-          <TemplateEditor
-            name={form.watch('name')}
-            date={form.watch('date')}
-            location={form.watch('location')}
-            customization={form.watch('customization')}
-            description={form.watch('description')}
-          />
         </form>
       </Form>
     </FormProvider>

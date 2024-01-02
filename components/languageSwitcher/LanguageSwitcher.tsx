@@ -14,19 +14,17 @@ export default function LanguageSwitcher() {
   const locale = useLocale()
 
   return (
-    <>
-      <LanguageSwitcherSelect defaultValue={locale}>
-        <SelectTrigger className="w-full sm:w-[140px]" aria-label={t(locale)}>
-          <SelectValue placeholder="Select a fruit" />
-        </SelectTrigger>
-        <SelectContent>
-          {locales.map((locale) => (
-            <SelectItem key={locale} value={locale}>
-              {t(locale)}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </LanguageSwitcherSelect>
-    </>
+    <LanguageSwitcherSelect defaultValue={locale}>
+      <SelectTrigger className="w-full sm:w-[140px]" aria-label={t(locale)}>
+        <SelectValue placeholder={t(locale)} />
+      </SelectTrigger>
+      <SelectContent>
+        {locales.map((locale) => (
+          <SelectItem key={locale} value={locale}>
+            {t(locale)}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </LanguageSwitcherSelect>
   )
 }

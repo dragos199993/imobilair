@@ -25,6 +25,7 @@ export default async function Home() {
 
   const isPro = true
   const limitExceeded = true
+  console.log(userId)
   const listings = await prismadb.listing.findMany({
     where: { userId: userId ?? '' },
   })

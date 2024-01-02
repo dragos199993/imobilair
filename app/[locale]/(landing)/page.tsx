@@ -36,10 +36,16 @@ export default function Home() {
         }}
       ></Script>
       <section className="px-12 text-center sm:p-0 sm:px-6">
-        <h1 className="mb-4 mt-4 scroll-m-20 text-4xl font-extrabold tracking-tight sm:mt-20 lg:text-5xl">
+        <h1
+          className="animate-fade-up mb-4 mt-4 scroll-m-20 text-4xl font-extrabold tracking-tight opacity-0 sm:mt-20 lg:text-5xl"
+          style={{ animationDelay: '0.25s', animationFillMode: 'forwards' }}
+        >
           {t('hero_title')}
         </h1>
-        <p className="mx-auto mb-4 max-w-[800px] text-gray-500 dark:text-gray-400 md:text-xl">
+        <p
+          className="animate-fade-up mx-auto mb-4 block max-w-[800px] text-gray-500 opacity-0 dark:text-gray-400 md:text-xl"
+          style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}
+        >
           {t('hero_description')}
         </p>
         <NextIntlClientProvider messages={pick(messages, 'Landing')}>

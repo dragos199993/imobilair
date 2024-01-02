@@ -13,12 +13,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { SignOutButton, UserButton } from '@clerk/nextjs'
+import { SignOutButton, useClerk, UserButton } from '@clerk/nextjs'
 import { routes } from '@/constants/routes'
 import LanguageSwitcher from '@/components/languageSwitcher/LanguageSwitcher'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { router } from 'next/client'
 
 const sidebarRoutes = [
   {
@@ -98,7 +99,10 @@ export const Sidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const isDesktop = useMediaQuery('(min-width: 768px)')
   const t = useTranslations('Dashboard')
+  const { signOut } = useClerk()
+  const router = useRouter()
 
+  console.log(isDesktop)
   if (isDesktop) {
     return (
       <aside className="fixed inset-y-0 z-50 mt-16 hidden w-20 md:flex">
@@ -119,19 +123,22 @@ export const Sidebar = () => {
           </SheetTitle>
           <div className="flex h-full flex-col justify-between">
             <SidebarRoot setSidebarOpen={setSidebarOpen} />
-            <SignOutButton>
-              <Button className="mt-4" variant="destructive">
-                <div
-                  className={cn(
-                    'flex flex-1 items-center gap-y-2',
-                    isDesktop ? 'flex-col' : 'w-full flex-row gap-4'
-                  )}
-                >
-                  <LogOut className="h-5 w-5" />
-                  {t('sign_out')}
-                </div>
-              </Button>
-            </SignOutButton>
+
+            <Button
+              className="mt-4"
+              variant="destructive"
+              onClick={() => signOut(() => router.push('/'))}
+            >
+              <div
+                className={cn(
+                  'flex flex-1 items-center gap-y-2',
+                  isDesktop ? 'flex-col' : 'w-full flex-row gap-4'
+                )}
+              >
+                <LogOut className="h-5 w-5" />
+                {t('sign_out')}
+              </div>
+            </Button>
             <div className="mt-4 flex gap-2">
               <LanguageSwitcher />
               <ModeToggle />

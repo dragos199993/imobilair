@@ -36,6 +36,9 @@
     "sidebar_home": "Acasă",
     "sidebar_create": "Adaugă",
     "sidebar_settings": "Setări",
-    "sign_out": "Deconectați-vă "
+    "sign_out": "Deconectați-vă ",
+    "your_listings": "Anunturile tale",
+    "add_listing": "Adauga",
+    "create_listing": "Adauga un anunt"
   }
 }
