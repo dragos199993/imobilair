@@ -32,13 +32,7 @@ import { Textarea } from '@/components/ui/textarea'
 
 type Props = z.infer<typeof formSchema> & { id: string }
 
-const EditEventForm: FC<Props> = ({
-  id,
-  date,
-  description,
-  location,
-  name,
-}) => {
+const EditEventForm: FC<Props> = ({ id, title, content }) => {
   const router = useRouter()
   const { session } = useSession()
   const { getToken } = useAuth()
@@ -46,10 +40,8 @@ const EditEventForm: FC<Props> = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name,
-      date: dayjs(date).toDate(),
-      description,
-      location,
+      title,
+      content,
     },
   })
 
@@ -81,7 +73,7 @@ const EditEventForm: FC<Props> = ({
           <div className="flex w-[240px] min-w-[240px] flex-col gap-4 space-y-8 pb-12">
             <FormField
               control={form.control}
-              name="name"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Numele</FormLabel>
@@ -95,7 +87,7 @@ const EditEventForm: FC<Props> = ({
 
             <FormField
               control={form.control}
-              name="description"
+              name="content"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Descriere</FormLabel>
@@ -105,64 +97,6 @@ const EditEventForm: FC<Props> = ({
                   <FormMessage />
                 </FormItem>
               )}
-            />
-            <FormField
-              control={form.control}
-              name="location"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Locatia</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Medgidia, sub pod" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="date"
-              render={({ field }) => {
-                const dayObj: Dayjs = dayjs(field.value)
-
-                return (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Data</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={'outline'}
-                            className={cn(
-                              'pl-3 text-left font-normal',
-                              !field.value && 'text-muted-foreground'
-                            )}
-                          >
-                            {field.value ? (
-                              dayObj.format('MMM D, YYYY')
-                            ) : (
-                              <span>Alege data evenimentului</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            dayjs(date).isBefore(dayjs(), 'day')
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
             />
             <Button type="submit">Modifica evenimentul</Button>
           </div>
