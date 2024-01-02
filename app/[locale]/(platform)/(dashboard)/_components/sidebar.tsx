@@ -102,7 +102,6 @@ export const Sidebar = () => {
   const { signOut } = useClerk()
   const router = useRouter()
 
-  console.log(isDesktop)
   if (isDesktop) {
     return (
       <aside className="fixed inset-y-0 z-50 mt-16 hidden w-20 md:flex">

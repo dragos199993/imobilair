@@ -8,7 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export const Navbar = () => {
   const { loaded } = useClerk()
-  console.log(loaded)
+
   return (
     <nav className="fixed z-40 flex h-16 w-full items-center justify-center gap-5 bg-secondary px-4 md:justify-between">
       <Logo />

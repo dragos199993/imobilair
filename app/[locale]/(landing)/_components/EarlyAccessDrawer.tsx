@@ -34,10 +34,9 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { toast } from 'sonner'
-import { createEarlyAccessSubmission } from '@/actions/createEarlyAccessSubmission'
+import { createEarlyAccessSubmission } from '@/actions/create-early-access-submission'
 import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
-import { log } from 'node:util'
 
 export function EarlyAccessDrawer() {
   const t = useTranslations('Landing')

@@ -12,6 +12,16 @@ import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
 import { DashboardActions } from '@/app/[locale]/(platform)/(dashboard)/_components/dashboardActions'
 import prismadb from '@/lib/db'
 import { auth } from '@clerk/nextjs'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Edit2Icon, EyeIcon, MoreHorizontal, Trash2 } from 'lucide-react'
+import { HTTP_TYPE } from '@/lib/utils'
+import React from 'react'
+import ListingCard from '@/app/[locale]/(platform)/(dashboard)/dashboard/_components/listing-card'
 
 export default async function Home() {
   const { userId } = auth()
@@ -25,7 +35,6 @@ export default async function Home() {
 
   const isPro = true
   const limitExceeded = true
-  console.log(userId)
   const listings = await prismadb.listing.findMany({
     where: { userId: userId ?? '' },
   })
@@ -43,17 +52,7 @@ export default async function Home() {
         )}
         <div className="mt-12 grid grid-cols-1 gap-8 pb-16 md:grid-cols-3">
           {listings?.map((listing) => (
-            <Card
-              className="flex flex-col items-center shadow-lg"
-              key={listing.id}
-            >
-              <CardHeader className="relative">
-                <CardTitle className="cursor-pointer">
-                  {listing.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>{listing.content}</CardContent>
-            </Card>
+            <ListingCard key={listing.id} listing={listing} />
           ))}
           {!isPro && limitExceeded && (
             <Card className="flex flex-col items-center justify-center">
