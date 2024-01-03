@@ -2,10 +2,12 @@ import React, { useEffect, useRef } from 'react'
 import { useChat } from 'ai/react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Bot, Delete, Trash, X } from 'lucide-react'
+import { Bot, Trash, X, XCircle } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Message } from 'ai'
 import { useOnClickOutside } from 'usehooks-ts'
+import { useTranslations } from 'next-intl'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
 type Props = {
   open: boolean
@@ -13,6 +15,7 @@ type Props = {
 }
 
 export const Chatbox = ({ onClose, open }: Props) => {
+  const t = useTranslations('Dashboard')
   const {
     messages,
     input,
@@ -31,13 +34,15 @@ export const Chatbox = ({ onClose, open }: Props) => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
-  }, [messages])
+  }, [messages, error])
 
   useEffect(() => {
     if (open) {
       inputRef.current?.focus()
     }
   }, [open])
+
+  const isLastMessageUser = messages[messages.length - 1]?.role === 'user'
 
   return (
     <div
@@ -56,15 +61,35 @@ export const Chatbox = ({ onClose, open }: Props) => {
         <X size={30} />
       </Button>
       <div className="flex h-[600px] flex-col border bg-secondary shadow-xl">
-        <div className="mt-16 h-full overflow-y-auto p-3" ref={scrollRef}>
-          {messages.length ? (
+        <p className="pl-4 pt-4 text-lg font-semibold">{t('chat_box_title')}</p>
+        <div className="mt-8 h-full overflow-y-auto p-3" ref={scrollRef}>
+          {!!messages.length &&
+            !error &&
             messages.map((message) => (
               <ChatMessage key={message.id} message={message} />
-            ))
-          ) : (
+            ))}
+
+          {!messages.length && !error && (
             <div className="flex h-full items-center justify-center gap-2">
               <Bot size={20} /> Start a conversation here
             </div>
+          )}
+          {isLoading && isLastMessageUser && (
+            <ChatMessage
+              message={{
+                role: 'assistant',
+                content: 'Thinking...',
+              }}
+            />
+          )}
+
+          {error && (
+            <ChatMessage
+              message={{
+                role: 'system',
+                content: 'Something went wrong',
+              }}
+            />
           )}
         </div>
         <form onSubmit={handleSubmit} className="m-3 flex gap-1">
@@ -85,7 +110,11 @@ export const Chatbox = ({ onClose, open }: Props) => {
   )
 }
 
-const ChatMessage = ({ message: { role, content } }: { message: Message }) => {
+const ChatMessage = ({
+  message: { role, content },
+}: {
+  message: Pick<Message, 'role' | 'content'>
+}) => {
   return (
     <div
       className={cn(
@@ -94,15 +123,27 @@ const ChatMessage = ({ message: { role, content } }: { message: Message }) => {
         role === 'assistant' && 'items-end rounded-lg bg-amber-600/20 px-2 py-2'
       )}
     >
-      <div
-        className={cn(
-          role === 'user' && 'items-start rounded-lg bg-primary/20 px-2 py-2',
-          role === 'assistant' &&
-            'items-end rounded-lg bg-amber-600/20 px-2 py-2'
-        )}
-      >
-        {content}
-      </div>
+      {(role === 'assistant' || role === 'user') && (
+        <div
+          className={cn(
+            role === 'user' && 'items-start rounded-lg bg-primary/20 px-2 py-2',
+            role === 'assistant' &&
+              'items-end rounded-lg bg-amber-600/20 px-2 py-2'
+          )}
+        >
+          {content}
+        </div>
+      )}
+      {role === 'system' && (
+        <Alert variant="destructive">
+          <XCircle className="h-5 w-5" />
+          <AlertTitle>Something went wrong!</AlertTitle>
+          <AlertDescription>
+            Please try again and if it doesn&lsquo;t work, feel free to contact
+            us.
+          </AlertDescription>
+        </Alert>
+      )}
     </div>
   )
 }
