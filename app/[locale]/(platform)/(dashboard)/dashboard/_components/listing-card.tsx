@@ -23,24 +23,21 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { routes } from '@/constants/routes'
 import { useAuth, useSession } from '@clerk/nextjs'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 import { Edit2Icon, EyeIcon, MoreHorizontal, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { FC } from 'react'
-import { z } from 'zod'
-import { formSchema } from '../new/_components/new-event-form'
-import { HTTP_TYPE } from '@/lib/utils'
-import { deleteEvent, updateEventsLimit } from '@/supabase/mutations'
+import { Listing } from '@prisma/client'
+import { deleteListing } from '@/actions/delete-listing'
 
 type Props = {
-  event: z.infer<typeof formSchema> & { id: string; slug: string }
+  listing: Listing
 }
 
-const EventCard: FC<Props> = ({ event }) => {
+const ListingCard: FC<Props> = ({ listing }) => {
   const router = useRouter()
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false)
-  const dayObj: Dayjs = dayjs(event.date)
   const { getToken } = useAuth()
   const { session } = useSession()
 
@@ -49,9 +46,10 @@ const EventCard: FC<Props> = ({ event }) => {
   }
 
   const handleDelete = async () => {
-    const token = await getToken({ template: 'nunta-noastra' })
-    await deleteEvent(token, event.id)
-    await updateEventsLimit(token, 0, session?.user.id)
+    await deleteListing({ id: listing.id })
+    // const token = await getToken({ template: 'nunta-noastra' })
+    // await deleteEvent(token, listing.id)
+    // await updateEventsLimit(token, 0, session?.user.id)
     router.refresh()
   }
 
@@ -60,14 +58,10 @@ const EventCard: FC<Props> = ({ event }) => {
       <Card>
         <CardHeader className="relative">
           <CardTitle className="cursor-pointer">
-            <Link
-              href={`${HTTP_TYPE}${event.slug}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`}
-            >
-              {event.name}
-            </Link>
+            <Link href={`/`}>{listing.title}</Link>
           </CardTitle>
           <CardDescription>
-            {dayObj.format('MMM D, YYYY - HH:mm')}
+            {dayjs().format('MMM D, YYYY - HH:mm')}
           </CardDescription>
           <DropdownMenu>
             <DropdownMenuTrigger className="absolute right-6 top-4">
@@ -78,10 +72,7 @@ const EventCard: FC<Props> = ({ event }) => {
                 className="cursor-pointer hover:bg-destructive/90"
                 asChild
               >
-                <Link
-                  href={`${HTTP_TYPE}${event.slug}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`}
-                  target="_blank"
-                >
+                <Link href={`/`} target="_blank">
                   <EyeIcon className="mr-2 h-4 w-4" />
                   Vezi pagina evenimentului
                 </Link>
@@ -90,7 +81,7 @@ const EventCard: FC<Props> = ({ event }) => {
                 className="cursor-pointer hover:bg-destructive/90"
                 asChild
               >
-                <Link href={`${routes.EDIT_EVENT}/${event.id}`}>
+                <Link href={`${routes.EDIT_EVENT}/${listing.id}`}>
                   <Edit2Icon className="mr-2 h-4 w-4" />
                   Modifica
                 </Link>
@@ -106,9 +97,8 @@ const EventCard: FC<Props> = ({ event }) => {
           </DropdownMenu>
         </CardHeader>
         <CardContent className="max-h-[240px] cursor-pointer overflow-y-auto">
-          <Link
-            href={`${HTTP_TYPE}${event.slug}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`}
-          ></Link>
+          <Link href={`/`}></Link>
+          {listing.content}
         </CardContent>
       </Card>
 
@@ -116,7 +106,8 @@ const EventCard: FC<Props> = ({ event }) => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              Esti sigur ca vrei sa stergi evenimentul &quot;{event.name}&quot;?
+              Esti sigur ca vrei sa stergi evenimentul &quot;{listing.title}
+              &quot;?
             </DialogTitle>
             <DialogDescription>Actiunea nu poate fi anulata.</DialogDescription>
           </DialogHeader>
@@ -137,4 +128,4 @@ const EventCard: FC<Props> = ({ event }) => {
   )
 }
 
-export default EventCard
+export default ListingCard

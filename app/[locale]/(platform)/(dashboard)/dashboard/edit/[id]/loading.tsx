@@ -1,7 +1,4 @@
-import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { routes } from '@/constants/routes'
-import Link from 'next/link'
 
 export default function Loading() {
   return (
@@ -12,7 +9,6 @@ export default function Loading() {
         </h1>
       </div>
       <div className="mt-8 flex w-full gap-6">
-        <Skeleton className="h-[380px] w-[240px] min-w-[240px] rounded-lg" />
         <Skeleton className="h-[380px] w-full rounded-lg" />
       </div>
     </section>

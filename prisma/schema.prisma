@@ -11,16 +11,20 @@ datasource db {
 }
 
 
-model EarlyAccessSubmissions {
+model EarlyAccessSubmission {
   id          String     @id @default(uuid())
   created_at  DateTime   @default(now())
   name        String
   email       String     @unique
+
+  @@map("early_access_submission")
 }
 
 model Listing {
   id        String     @id @default(uuid())
   title     String
-  content   String?
+  content   String
   userId  String
+
+  @@map("listing")
 }

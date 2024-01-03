@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { routes } from '@/constants/routes'
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -12,6 +11,8 @@ import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
 import { DashboardActions } from '@/app/[locale]/(platform)/(dashboard)/_components/dashboardActions'
 import prismadb from '@/lib/db'
 import { auth } from '@clerk/nextjs'
+import React from 'react'
+import ListingCard from '@/app/[locale]/(platform)/(dashboard)/dashboard/_components/listing-card'
 
 export default async function Home() {
   const { userId } = auth()
@@ -40,19 +41,9 @@ export default async function Home() {
             </Button>
           </div>
         )}
-        <div className="mt-12 grid grid-cols-1 gap-8 pb-16 md:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-6 pb-16 md:grid-cols-2">
           {listings?.map((listing) => (
-            <Card
-              className="flex flex-col items-center shadow-lg"
-              key={listing.id}
-            >
-              <CardHeader className="relative">
-                <CardTitle className="cursor-pointer">
-                  {listing.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>{listing.content}</CardContent>
-            </Card>
+            <ListingCard key={listing.id} listing={listing} />
           ))}
           {!isPro && limitExceeded && (
             <Card className="flex flex-col items-center justify-center">
