@@ -1,5 +1,5 @@
-import EditEventForm from './_components/edit-event.form'
 import { getListingById } from '@/services/listing-service'
+import EditListingForm from '@/app/[locale]/(platform)/(dashboard)/dashboard/edit/[id]/_components/edit-listing.form'
 
 export default async function EditEventPage({
   params,
@@ -19,7 +19,7 @@ export default async function EditEventPage({
           Modifica anuntul
         </h1>
       </div>
-      <EditEventForm {...listing} />
+      <EditListingForm {...listing} />
     </section>
   )
 }

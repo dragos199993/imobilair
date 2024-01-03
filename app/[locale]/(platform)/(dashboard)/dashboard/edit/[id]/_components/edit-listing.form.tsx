@@ -16,13 +16,13 @@ import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { routes } from '@/constants/routes'
 import { FC } from 'react'
-import { formSchema } from '../../../new/_components/new-event-form'
 import { Textarea } from '@/components/ui/textarea'
 import { updateListing } from '@/actions/update-listing'
+import { formSchema } from '@/app/[locale]/(platform)/(dashboard)/dashboard/new/_components/new-listing-form'
 
 type Props = z.infer<typeof formSchema> & { id: string }
 
-const EditEventForm: FC<Props> = ({ id, title, content }) => {
+const EditListingForm: FC<Props> = ({ id, title, content }) => {
   const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -34,7 +34,6 @@ const EditEventForm: FC<Props> = ({ id, title, content }) => {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log({ id, title, content })
     const { error } = await updateListing({
       id,
       title: values.title,
@@ -90,4 +89,4 @@ const EditEventForm: FC<Props> = ({ id, title, content }) => {
   )
 }
 
-export default EditEventForm
+export default EditListingForm

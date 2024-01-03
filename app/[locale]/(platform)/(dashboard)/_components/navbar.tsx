@@ -5,6 +5,7 @@ import { ModeToggle } from '@/components/ui/mode-toggle'
 import { routes } from '@/constants/routes'
 import LanguageSwitcher from '@/components/languageSwitcher/LanguageSwitcher'
 import { Skeleton } from '@/components/ui/skeleton'
+import { ChatButton } from '@/components/ui/ai/ChatButton'
 
 export const Navbar = () => {
   const { loaded } = useClerk()
@@ -20,6 +21,7 @@ export const Navbar = () => {
         )}
         <LanguageSwitcher />
         <ModeToggle />
+        <ChatButton />
       </div>
     </nav>
   )

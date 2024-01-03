@@ -31,10 +31,9 @@ export const formSchema = z.object({
   }),
 })
 
-function NewEventForm({ isPro }: { isPro: boolean }) {
+function NewListingForm({ isPro }: { isPro: boolean }) {
   const router = useRouter()
   const { session } = useSession()
-  const { getToken } = useAuth()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -143,4 +142,4 @@ function NewEventForm({ isPro }: { isPro: boolean }) {
   )
 }
 
-export default NewEventForm
+export default NewListingForm
