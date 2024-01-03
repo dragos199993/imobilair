@@ -31,8 +31,6 @@ export async function POST(req: Request) {
       },
     })
 
-    console.log({ relevantNoootes: relevantListings })
-
     const systemMessage: any = {
       role: 'system',
       content:

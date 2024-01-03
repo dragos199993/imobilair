@@ -13,7 +13,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
   const { title, content } = data
 
-  console.log(title + '\n\n' + content)
   const embedding = await getEmbedding(title + '\n\n' + content)
 
   try {
