@@ -39,6 +39,7 @@
     "sign_out": "Sign out",
     "your_listings": "Your listings",
     "add_listing": "Add new",
-    "create_listing": "Create new listing"
+    "create_listing": "Create new listing",
+    "chat_box_title": "Your conversation"
   }
 }
