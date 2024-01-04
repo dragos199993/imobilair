@@ -24,7 +24,9 @@ export const Chatbox = ({ onClose, open }: Props) => {
     setMessages,
     isLoading,
     error,
-  } = useChat()
+  } = useChat({
+    api: '/en/api/chat',
+  })
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const ref = useRef(null)

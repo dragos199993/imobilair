@@ -11,6 +11,9 @@ export const scrapeLink = async (data: string) => {
   const content = document.querySelector(
     '[data-cy="adPageAdDescription"]'
   ).textContent
+  const price = document.querySelector(
+    '[data-cy="adPageHeaderPrice"]'
+  ).textContent
 
-  return { title, content }
+  return { title, content, price }
 }

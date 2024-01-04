@@ -57,7 +57,7 @@ const ListingCard: FC<Props> = ({ listing }) => {
     <>
       <Card>
         <CardHeader className="relative">
-          <CardTitle className="cursor-pointer">
+          <CardTitle className="cursor-pointer pr-8">
             <Link href={`/`}>{listing.title}</Link>
           </CardTitle>
           <CardDescription>

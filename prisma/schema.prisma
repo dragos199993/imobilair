@@ -24,6 +24,7 @@ model Listing {
   id        String     @id @default(uuid())
   title     String
   content   String
+  price     String
   userId  String
 
   @@map("listing")

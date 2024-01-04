@@ -7,7 +7,6 @@ import { OpenAIStream, StreamingTextResponse } from 'ai'
 
 export async function POST(req: Request) {
   try {
-    console.log('here')
     const body = await req.json()
     const messages: ChatCompletionMessageParam[] = body.messages
 
@@ -16,8 +15,10 @@ export async function POST(req: Request) {
       messagesTruncated.map((message) => message.content).join('\n')
     )
 
+    console.log(messagesTruncated)
     const { userId } = auth()
 
+    console.log(userId)
     const vectorQueryResponse = await listingsIndex.query({
       vector: embedding,
       topK: 2,
@@ -33,20 +34,32 @@ export async function POST(req: Request) {
       },
     })
 
-    const systemMessage: any = {
-      role: 'system',
-      content:
-        'Esti un agent imobiliar genial. Raspunzi clientului cu ce crezi ca l-ar interesa din anunturile noastre.' +
-        'Iata cateva reguli care trebuie respectate:' +
-        '- Evita sa spui pretul' +
-        '- Nu inventa anunturi daca nu ai disponbile. Te rog sa folosesti doar anunturile disponibile. NIMIC ALTCEVA.' +
-        '- Spune doar anunturile noastre, nu ale altor agentii.' +
-        'Aici sunt toate anunturile noastre disponibile:' +
-        relevantListings
-          .map(
-            (listing) => `Titlu: ${listing.title}\nContinut: ${listing.content}`
-          )
-          .join('\n'),
+    console.log(relevantListings)
+    let systemMessage: any
+
+    if (!relevantListings.length) {
+      systemMessage = {
+        role: 'system',
+        content: `La orice intrebare trebuie sa spui ca momentan nu avem niciun anunt disponibil.`,
+      }
+    } else {
+      systemMessage = {
+        role: 'system',
+        content:
+          'Esti un agent imobiliar genial. Raspunzi clientului cu ce crezi ca l-ar interesa din anunturile noastre.' +
+          'Aici sunt toate anunturile noastre disponibile:' +
+          relevantListings
+            .map(
+              (listing) =>
+                `Titlu: ${listing.title}\nContinut: ${listing.content}`
+            )
+            .join('\n') +
+          'Iata cateva reguli care trebuie respectate:' +
+          '- Evita sa spui pretul' +
+          '- Trebuie sa spui ca ai un anunt doar daca il gasesti in lista de anunturi disponibile. Altfel nu.' +
+          '- Nu inventa anunturi sub nicio forma. Limiteaza-te doar la lista de anunturi disponibile. ATAT.' +
+          '- Spune doar anunturile noastre, nu ale altor agentii.',
+      }
     }
 
     const response = await openai.chat.completions.create({
