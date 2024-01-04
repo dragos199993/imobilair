@@ -19,6 +19,16 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Label } from '@/components/ui/label'
 
 type Props = {
   open: boolean
@@ -26,49 +36,10 @@ type Props = {
 }
 
 export const Chatbox = ({ setOpen, open }: Props) => {
-  const t = useTranslations('Dashboard')
   const isDesktop = useMediaQuery('(min-width: 768px)')
   const ref = useRef(null)
   useOnClickOutside(ref, () => setOpen(false))
 
-  if (isDesktop) {
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          'relative bottom-0 right-0 z-40 w-full max-w-[500px] rounded-lg bg-secondary shadow-xl xl:right-36',
-          open ? 'fixed' : 'hidden'
-        )}
-      >
-        <Button
-          variant="ghost"
-          title="Close"
-          className="absolute right-0 top-2"
-          onClick={() => setOpen(false)}
-        >
-          <X size={30} />
-        </Button>
-
-        <ChatBase open={open} setOpen={setOpen} isDesktop={isDesktop} />
-      </div>
-    )
-  }
-
-  return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerContent>
-        <div className="mx-auto w-full max-w-sm">
-          <DrawerHeader>
-            <DrawerTitle>{t('chat_box_title')}</DrawerTitle>
-          </DrawerHeader>
-          <ChatBase open={open} setOpen={setOpen} isDesktop={isDesktop} />
-        </div>
-      </DrawerContent>
-    </Drawer>
-  )
-}
-
-const ChatBase = ({ open, isDesktop }: Props & { isDesktop: boolean }) => {
   const {
     messages,
     input,
@@ -99,55 +70,145 @@ const ChatBase = ({ open, isDesktop }: Props & { isDesktop: boolean }) => {
 
   const t = useTranslations('Dashboard')
 
-  return (
-    <div className="flex h-[600px] flex-col border bg-secondary shadow-xl">
-      {isDesktop && (
-        <p className="pl-4 pt-4 text-lg font-semibold">{t('chat_box_title')}</p>
-      )}
-      <div className="mt-8 h-full overflow-y-auto p-3" ref={scrollRef}>
-        {!!messages.length &&
-          !error &&
-          messages.map((message) => (
-            <ChatMessage key={message.id} message={message} />
-          ))}
-
-        {!messages.length && !error && (
-          <div className="flex h-full items-center justify-center gap-2">
-            <Bot size={20} /> Start a conversation here
-          </div>
+  if (isDesktop) {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          'relative bottom-0 right-0 z-40 w-full max-w-[500px] rounded-lg bg-secondary shadow-xl xl:right-36',
+          open ? 'fixed' : 'hidden'
         )}
-        {isLoading && isLastMessageUser && (
-          <ChatMessage
-            message={{
-              role: 'assistant',
-              content: 'Thinking...',
-            }}
-          />
-        )}
-
-        {error && (
-          <ChatMessage
-            message={{
-              role: 'system',
-              content: 'Something went wrong',
-            }}
-          />
-        )}
-      </div>
-      <form onSubmit={handleSubmit} className="m-3 flex gap-2">
-        <Button variant="ghost" type="button" onClick={() => setMessages([])}>
-          <Trash />
+      >
+        <Button
+          variant="ghost"
+          title="Close"
+          className="absolute right-0 top-2"
+          onClick={() => setOpen(false)}
+        >
+          <X size={30} />
         </Button>
 
-        <Input
-          ref={inputRef}
-          value={input}
-          onChange={handleInputChange}
-          placeholder="Say something..."
-        />
-        <Button type="submit">Send</Button>
-      </form>
-    </div>
+        <div className="flex h-[600px] flex-col border bg-secondary shadow-xl">
+          <p className="pl-4 pt-4 text-lg font-semibold">
+            {t('chat_box_title')}
+          </p>
+          <div className="mt-8 h-full overflow-y-auto p-3" ref={scrollRef}>
+            {!!messages.length &&
+              !error &&
+              messages.map((message) => (
+                <ChatMessage key={message.id} message={message} />
+              ))}
+
+            {!messages.length && !error && (
+              <div className="flex h-full items-center justify-center gap-2">
+                <Bot size={20} /> Start a conversation here
+              </div>
+            )}
+            {isLoading && isLastMessageUser && (
+              <ChatMessage
+                message={{
+                  role: 'assistant',
+                  content: 'Thinking...',
+                }}
+              />
+            )}
+
+            {error && (
+              <ChatMessage
+                message={{
+                  role: 'system',
+                  content: 'Something went wrong',
+                }}
+              />
+            )}
+          </div>
+          <form onSubmit={handleSubmit} className="m-3 flex gap-1">
+            <Button
+              variant="ghost"
+              type="button"
+              onClick={() => setMessages([])}
+            >
+              <Trash />
+            </Button>
+
+            <Input
+              ref={inputRef}
+              value={input}
+              onChange={handleInputChange}
+              placeholder="Say something..."
+            />
+            <Button type="submit">Send</Button>
+          </form>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="h-screen pt-14 sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>{t('chat_box_title')}</DialogTitle>
+          <Button
+            variant="ghost"
+            title="Close"
+            className="absolute right-2 top-10"
+            onClick={() => setOpen(false)}
+          >
+            <X size={30} />
+          </Button>
+        </DialogHeader>
+        <div className="mt-8 h-full overflow-y-auto p-3" ref={scrollRef}>
+          {!!messages.length &&
+            !error &&
+            messages.map((message) => (
+              <ChatMessage key={message.id} message={message} />
+            ))}
+
+          {!messages.length && !error && (
+            <div className="flex h-full items-center justify-center gap-2">
+              <Bot size={20} /> Start a conversation here
+            </div>
+          )}
+          {isLoading && isLastMessageUser && (
+            <ChatMessage
+              message={{
+                role: 'assistant',
+                content: 'Thinking...',
+              }}
+            />
+          )}
+
+          {error && (
+            <ChatMessage
+              message={{
+                role: 'system',
+                content: 'Something went wrong',
+              }}
+            />
+          )}
+        </div>
+        <DialogFooter>
+          <form onSubmit={handleSubmit} className="mb-2 flex gap-2">
+            <Button
+              variant="ghost"
+              type="button"
+              onClick={() => setMessages([])}
+            >
+              <Trash />
+            </Button>
+
+            <Input
+              ref={inputRef}
+              value={input}
+              onChange={handleInputChange}
+              placeholder="Say something..."
+            />
+            <Button type="submit">Send</Button>
+          </form>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }
 
