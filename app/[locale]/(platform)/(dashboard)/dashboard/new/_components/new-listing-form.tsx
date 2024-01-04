@@ -20,6 +20,9 @@ import { createListing } from '@/actions/create-listing'
 import { Loader2 } from 'lucide-react'
 import { ImportData } from '@/app/[locale]/(platform)/(dashboard)/dashboard/new/_components/import-data'
 import { useEffect, useState } from 'react'
+import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
+import { useTranslations } from 'next-intl'
+import { ButtonLoading } from '@/components/ui/button-loading'
 
 export const importDataSchema = z.object({
   url: z.string().min(2, {
@@ -29,16 +32,20 @@ export const importDataSchema = z.object({
 
 export const formSchema = z.object({
   title: z.string().min(2, {
-    message: 'Numele evenimentului trebuie sa aiba minim 2 caractere.',
+    message: 'title_required',
   }),
   content: z.string().min(2, {
-    message: 'Descrierea evenimentului trebuie sa aiba minim 2 caractere.',
+    message: 'content_required',
+  }),
+  price: z.string().min(2, {
+    message: 'price_required',
   }),
 })
 
 function NewListingForm() {
   const [importedData, setImportedData] = useState<z.infer<typeof formSchema>>()
   const router = useRouter()
+  const t = useTranslations('Dashboard')
 
   const importDataForm = useForm<z.infer<typeof importDataSchema>>({
     resolver: zodResolver(importDataSchema),
@@ -51,6 +58,7 @@ function NewListingForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
+      price: '',
       content: '',
     },
   })
@@ -58,7 +66,9 @@ function NewListingForm() {
   useEffect(() => {
     if (importedData) {
       form.setValue('title', importedData.title)
+      form.setValue('price', importedData.price)
       form.setValue('content', importedData.content)
+      form.clearErrors()
     }
   }, [importedData])
 
@@ -81,23 +91,43 @@ function NewListingForm() {
   }
 
   return (
-    <>
-      <ImportData {...importDataForm} setImportedData={setImportedData} />
+    <DashboardLayout
+      title="create_listing"
+      actions={
+        <ImportData {...importDataForm} setImportedData={setImportedData} />
+      }
+    >
       <FormProvider {...form}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mt-8 flex w-full gap-6"
+            className="mt-8 flex w-full max-w-[450px] gap-6"
           >
-            <div className="flex  w-full  flex-col gap-4 space-y-8 pb-12">
+            <div className="flex  w-full  flex-col gap-4 space-y-2 pb-12">
               <FormField
                 control={form.control}
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Numele</FormLabel>
+                    <FormLabel>{t('listing_form_title')}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Title" {...field} />
+                      <Input
+                        placeholder={t('listing_form_title_placeholder')}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('listing_form_price')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,25 +138,22 @@ function NewListingForm() {
                 name="content"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Content</FormLabel>
+                    <FormLabel>{t('listing_form_content')}</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Descriere" {...field} />
+                      <Textarea className="min-h-[150px]" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" aria-disabled={isSubmitting}>
-                {isSubmitting && (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                )}
-                Adauga anunt
-              </Button>
+              <ButtonLoading loading={isSubmitting}>
+                {t('listing_form_submit')}
+              </ButtonLoading>
             </div>
           </form>
         </Form>
       </FormProvider>
-    </>
+    </DashboardLayout>
   )
 }
 

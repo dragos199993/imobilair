@@ -13,6 +13,7 @@ import prismadb from '@/lib/db'
 import { auth } from '@clerk/nextjs'
 import React from 'react'
 import ListingCard from '@/app/[locale]/(platform)/(dashboard)/dashboard/_components/listing-card'
+import { NoEventCard } from '@/app/[locale]/(platform)/(dashboard)/dashboard/_components/no-event-card'
 
 export default async function Home() {
   const { userId } = auth()
@@ -29,18 +30,10 @@ export default async function Home() {
   const listings = await prismadb.listing.findMany({
     where: { userId: userId ?? '' },
   })
-
   return (
     <DashboardLayout title="your_listings" actions={<DashboardActions />}>
       <section className="flex h-[600px]  flex-col">
-        {listings?.length === 0 && (
-          <div className="flex h-full w-full flex-col items-center justify-center">
-            <p className="text-2xl font-bold">Nu ai creat niciun eveniment.</p>
-            <Button className="mt-2">
-              <Link href={routes.NEW_EVENT}>Adauga un eveniment</Link>
-            </Button>
-          </div>
-        )}
+        {listings?.length === 0 && <NoEventCard />}
         <div className="mt-12 grid grid-cols-1 gap-6 pb-16 md:grid-cols-2">
           {listings?.map((listing) => (
             <ListingCard key={listing.id} listing={listing} />

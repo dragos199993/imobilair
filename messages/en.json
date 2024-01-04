@@ -1,4 +1,9 @@
 {
+  "General": {
+    "title_required": "Title field is required!",
+    "price_required": "Price field is required!",
+    "content_required": "Description field is required!"
+  },
   "Landing": {
     "hero_title": "List Smarter, Sell Faster with <p>imobil<span>ai</span>r</p>",
     "hero_description": "Transform your real estate dealings using AI-powered chatbots. Elevate client interactions, enhance property visibility, and close deals quicker than ever before!",
@@ -39,11 +44,22 @@
     "sidebar_settings": "Settings",
     "sign_out": "Sign out",
     "your_listings": "Your listings",
+    "no_listings_title": "You have no listings, yet.",
     "add_listing": "Add new",
     "create_listing": "Create new listing",
     "chat_box_title": "Your conversation",
     "copied_with_success": "Copied with success!",
     "copied_failed": "Copy did not work. Please try again.",
-    "your_api_key": "Your api key:"
+    "your_api_key": "Your api key:",
+    "import_data_title": "Add existing listing",
+    "import_data_description": "Import a listing from an existing provider like Storia, OLX.",
+    "import_data_submit": "Import data",
+    "import_data_failed": "Import failed, try again, if it persists, manually copy the data you need below.",
+    "import_data_success": "Imported data with success!",
+    "listing_form_title": "Listing title",
+    "listing_form_title_placeholder": "House near lake, 4 rooms",
+    "listing_form_price": "Price",
+    "listing_form_content": "Description",
+    "listing_form_submit": "Add listing"
   }
 }

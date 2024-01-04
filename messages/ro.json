@@ -1,4 +1,9 @@
 {
+  "General": {
+    "title_required": "Câmpul de titlu este obligatoriu!",
+    "price_required": "Câmpul pentru preț este obligatoriu!",
+    "content_required": "Câmpul de descriere este obligatoriu!"
+  },
   "Landing": {
     "hero_title": "Listări Eficiente, Vânzări Rapide cu <p>imobil<span>ai</span>r</p>",
     "hero_description": "Transformă-ți tranzacțiile imobiliare folosind chatboți alimentați de AI. Ridică nivelul interacțiunilor cu clienții, îmbunătățește vizibilitatea proprietăților.",
@@ -39,8 +44,22 @@
     "sidebar_settings": "Setări",
     "sign_out": "Deconectați-vă ",
     "your_listings": "Anunturile tale",
+    "no_listings_title": "Nu ai adaugat niciun anunt.",
     "add_listing": "Adauga",
     "create_listing": "Adauga un anunt",
-    "chat_box_title": "Conversatia ta"
+    "chat_box_title": "Conversatia ta",
+    "copied_with_success": "Textul a fost copiat.",
+    "copied_failed": "Textul nu a putut fi copiat. Te rugam sa incerci din nou.",
+    "your_api_key": "Api key-ul tau:",
+    "import_data_title": "Adaugă un anunț existent",
+    "import_data_description": "Importați o înregistrare de la un furnizor existent precum Storia, OLX.",
+    "import_data_submit": "Importați datele",
+    "import_data_failed": "Importul a eșuat, încercați din nou, dacă persistă, copiați manual datele de care aveți nevoie de mai jos.",
+    "import_data_success": "Datele au fost aduse cu succes!",
+    "listing_form_title": "Titlul anunțului",
+    "listing_form_title_placeholder": "Casă lângă lac, 4 camere",
+    "listing_form_price": "Preț",
+    "listing_form_content": "Descriere",
+    "listing_form_submit": "Adaugă anunțul"
   }
 }

@@ -64,7 +64,6 @@ export async function POST(req: Request) {
   }
 
   if (eventType === 'user.deleted') {
-    console.log(payload.data.id)
     await db.profile.delete({
       where: {
         clerkUserId: payload.data.id as string,
