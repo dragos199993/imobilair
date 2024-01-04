@@ -22,7 +22,7 @@ import { formSchema } from '@/app/[locale]/(platform)/(dashboard)/dashboard/new/
 
 type Props = z.infer<typeof formSchema> & { id: string }
 
-const EditListingForm: FC<Props> = ({ id, title, content }) => {
+const EditListingForm: FC<Props> = ({ id, title, content, price }) => {
   const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -30,6 +30,7 @@ const EditListingForm: FC<Props> = ({ id, title, content }) => {
     defaultValues: {
       title,
       content,
+      price,
     },
   })
 
@@ -38,6 +39,7 @@ const EditListingForm: FC<Props> = ({ id, title, content }) => {
       id,
       title: values.title,
       content: values.content,
+      price: values.price,
     })
 
     if (!error) {

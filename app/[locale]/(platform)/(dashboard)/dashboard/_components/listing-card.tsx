@@ -22,7 +22,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { routes } from '@/constants/routes'
-import { useAuth, useSession } from '@clerk/nextjs'
 import dayjs from 'dayjs'
 import { Edit2Icon, EyeIcon, MoreHorizontal, Trash2 } from 'lucide-react'
 import Link from 'next/link'
@@ -38,8 +37,6 @@ type Props = {
 const ListingCard: FC<Props> = ({ listing }) => {
   const router = useRouter()
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false)
-  const { getToken } = useAuth()
-  const { session } = useSession()
 
   const handleDeleteModal = () => {
     setIsDeleteModalOpen(true)
@@ -60,9 +57,7 @@ const ListingCard: FC<Props> = ({ listing }) => {
           <CardTitle className="cursor-pointer pr-8">
             <Link href={`/`}>{listing.title}</Link>
           </CardTitle>
-          <CardDescription>
-            {dayjs().format('MMM D, YYYY - HH:mm')}
-          </CardDescription>
+          <CardDescription>{listing.price}</CardDescription>
           <DropdownMenu>
             <DropdownMenuTrigger className="absolute right-6 top-4">
               <MoreHorizontal />

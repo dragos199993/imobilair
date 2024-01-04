@@ -9,5 +9,6 @@ export const CreateListing = z.object({
     .min(3, {
       message: 'listing_title_short',
     }),
+  price: z.string(),
   content: z.string(),
 })

@@ -11,10 +11,10 @@ import { listingsIndex } from '@/lib/pinecone'
 const handler = async (data: InputType): Promise<ReturnType> => {
   const user = await getSelf()
 
-  const { title, content } = data
+  const { title, content, price } = data
 
   const embedding = await getEmbedding(
-    title + '\n\n' + content + '\n\n' + 'Owner:' + user.id
+    title + '\n\n' + content + '\n\n' + price + '\n\n' + 'Owner:' + user.id
   )
 
   try {
@@ -23,6 +23,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         data: {
           title,
           content,
+          price,
           userId: user.id,
         },
       })
