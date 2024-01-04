@@ -1,8 +1,9 @@
 {
   "Landing": {
-    "hero_title": "Effectively sell real estate properties.",
-    "hero_description": "For every listing published, you receive a chatbot that answers questions and sends you notifications when someone is interested in the property.",
+    "hero_title": "List Smarter, Sell Faster with <p>imobil<span>ai</span>r</p>",
+    "hero_description": "Transform your real estate dealings using AI-powered chatbots. Elevate client interactions, enhance property visibility, and close deals quicker than ever before!",
     "early_access": "Get Early Access",
+    "find_out_more": "Find out more",
     "early_access_description": "We will get in touch to provide access on alpha version of the application.",
     "name_label": "Name",
     "email_invalid": "Invalid Email",
@@ -40,6 +41,9 @@
     "your_listings": "Your listings",
     "add_listing": "Add new",
     "create_listing": "Create new listing",
-    "chat_box_title": "Your conversation"
+    "chat_box_title": "Your conversation",
+    "copied_with_success": "Copied with success!",
+    "copied_failed": "Copy did not work. Please try again.",
+    "your_api_key": "Your api key:"
   }
 }

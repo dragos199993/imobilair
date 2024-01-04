@@ -28,3 +28,13 @@ model Listing {
 
   @@map("listing")
 }
+
+model Profile {
+  id            Int    @id @default(autoincrement())
+  clerkUserId   String @unique
+  key           String @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("profile")
+}

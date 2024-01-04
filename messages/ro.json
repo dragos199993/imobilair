@@ -1,8 +1,9 @@
 {
   "Landing": {
-    "hero_title": "Ajutorul tău pentru a vinde eficient proprietăți imobiliare.",
-    "hero_description": "Pentru fiecare anunț publicat, primești un chatbot care răspunde la întrebări și îți trimite notificări când cineva este interesat de proprietate.",
+    "hero_title": "Listări Eficiente, Vânzări Rapide cu <p>imobil<span>ai</span>r</p>",
+    "hero_description": "Transformă-ți tranzacțiile imobiliare folosind chatboți alimentați de AI. Ridică nivelul interacțiunilor cu clienții, îmbunătățește vizibilitatea proprietăților.",
     "early_access": "Obține acces timpuriu",
+    "find_out_more": "Descopera mai multe",
     "early_access_description": "Imediat ce aplicația este disponibilă, vei primi un email.",
     "name_label": "Nume",
     "email_invalid": "Email invalid",

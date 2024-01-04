@@ -109,7 +109,6 @@ function EarlyAccessForm({ setOpen }: { setOpen: (value: boolean) => void }) {
         setOpen(false)
         return
       }
-      console.log(error?.message)
       if (error?.message?.includes('Unique')) {
         toast.error(t('early_access_submission_duplicate'))
         return
