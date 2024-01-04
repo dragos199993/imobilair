@@ -60,6 +60,7 @@ export const Chatbox = ({ onClose, open }: Props) => {
       >
         <X size={30} />
       </Button>
+
       <div className="flex h-[600px] flex-col border bg-secondary shadow-xl">
         <p className="pl-4 pt-4 text-lg font-semibold">{t('chat_box_title')}</p>
         <div className="mt-8 h-full overflow-y-auto p-3" ref={scrollRef}>

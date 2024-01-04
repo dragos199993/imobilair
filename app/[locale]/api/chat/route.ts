@@ -7,6 +7,7 @@ import { OpenAIStream, StreamingTextResponse } from 'ai'
 
 export async function POST(req: Request) {
   try {
+    console.log('here')
     const body = await req.json()
     const messages: ChatCompletionMessageParam[] = body.messages
 
@@ -28,6 +29,7 @@ export async function POST(req: Request) {
         id: {
           in: vectorQueryResponse.matches.map((match) => match.id),
         },
+        userId: userId ?? '',
       },
     })
 
@@ -35,6 +37,10 @@ export async function POST(req: Request) {
       role: 'system',
       content:
         'Esti un agent imobiliar genial. Raspunzi clientului cu ce crezi ca l-ar interesa din anunturile noastre.' +
+        'Iata cateva reguli care trebuie respectate:' +
+        '- Evita sa spui pretul' +
+        '- Nu inventa anunturi daca nu ai disponbile. Te rog sa folosesti doar anunturile disponibile. NIMIC ALTCEVA.' +
+        '- Spune doar anunturile noastre, nu ale altor agentii.' +
         'Aici sunt toate anunturile noastre disponibile:' +
         relevantListings
           .map(
@@ -46,6 +52,7 @@ export async function POST(req: Request) {
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       stream: true,
+      temperature: 0.3, // Lower temperature for less creativity
       messages: [systemMessage, ...messagesTruncated],
     })
 

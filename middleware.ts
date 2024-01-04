@@ -19,7 +19,8 @@ export default authMiddleware({
     '/ro',
     '/hu',
     '/invite/:id',
-    '/api/webhook',
+    '/en/api/webhooks/clerk',
+    '/api/profile',
     '/:locale/sign-in',
   ],
   beforeAuth: (req) => {
@@ -44,9 +45,8 @@ export default authMiddleware({
 
 export const config = {
   matcher: [
-    '/((?!.+\\.[\\w]+$|_next).*)',
+    '/((?!.+\\.[\\w]+$|_next|api/chat/verify-token|api/chat).*)',
     '/',
-    '/(api|trpc)(.*)',
     '/(en|ro|hu)/:path*',
   ],
 }
