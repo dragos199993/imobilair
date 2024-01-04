@@ -10,5 +10,6 @@ export const UpdateListing = z.object({
       message: 'listing_title_short',
     }),
   content: z.string(),
+  price: z.string(),
   id: z.string(),
 })
