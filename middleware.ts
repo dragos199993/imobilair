@@ -1,5 +1,6 @@
 import { authMiddleware, redirectToSignIn } from '@clerk/nextjs'
 import createMiddleware from 'next-intl/middleware'
+import { NextResponse } from 'next/server'
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -15,9 +16,7 @@ const intlMiddleware = createMiddleware({
 export default authMiddleware({
   publicRoutes: [
     '/',
-    '/en',
-    '/ro',
-    '/hu',
+    '/:locale',
     '/invite/:id',
     '/en/api/webhooks/clerk',
     '/api/profile',
@@ -28,11 +27,11 @@ export default authMiddleware({
     return intlMiddleware(req)
   },
   afterAuth(auth, req) {
-    // if (auth.userId && auth.isPublicRoute) {
-    //   let path = '/dashboard'
-    //   const dashboardUrl = new URL(path, req.url)
-    //   return NextResponse.redirect(dashboardUrl)
-    // }
+    if (auth.userId && auth.isPublicRoute) {
+      let path = '/dashboard'
+      const dashboardUrl = new URL(path, req.url)
+      return NextResponse.redirect(dashboardUrl)
+    }
     if (!auth.userId && !auth.isPublicRoute) {
       return redirectToSignIn({ returnBackUrl: req.url })
     }
