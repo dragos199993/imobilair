@@ -60,6 +60,7 @@
     "listing_form_title_placeholder": "House near lake, 4 rooms",
     "listing_form_price": "Price",
     "listing_form_content": "Description",
-    "listing_form_submit": "Add listing"
+    "listing_form_submit": "Add listing",
+    "listing_form_edit_submit": "Edit listing"
   }
 }

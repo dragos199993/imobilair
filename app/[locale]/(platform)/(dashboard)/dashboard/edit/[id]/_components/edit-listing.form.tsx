@@ -19,10 +19,12 @@ import { FC } from 'react'
 import { Textarea } from '@/components/ui/textarea'
 import { updateListing } from '@/actions/update-listing'
 import { formSchema } from '@/app/[locale]/(platform)/(dashboard)/dashboard/new/_components/new-listing-form'
+import { useTranslations } from 'next-intl'
 
 type Props = z.infer<typeof formSchema> & { id: string }
 
 const EditListingForm: FC<Props> = ({ id, title, content, price }) => {
+  const t = useTranslations('Dashboard')
   const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -61,9 +63,26 @@ const EditListingForm: FC<Props> = ({ id, title, content, price }) => {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Numele</FormLabel>
+                  <FormLabel>{t('listing_form_title')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Mihai si Mihaela" {...field} />
+                    <Input
+                      placeholder={t('listing_form_title_placeholder')}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="price"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('listing_form_price')}</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -75,15 +94,15 @@ const EditListingForm: FC<Props> = ({ id, title, content, price }) => {
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descriere</FormLabel>
+                  <FormLabel>{t('listing_form_content')}</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Descriere" {...field} />
+                    <Textarea {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit">Modifica anuntul</Button>
+            <Button type="submit">{t('listing_form_edit_submit')}</Button>
           </div>
         </form>
       </Form>
