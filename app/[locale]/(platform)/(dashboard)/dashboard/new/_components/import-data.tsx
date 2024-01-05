@@ -17,7 +17,7 @@ import {
   importDataSchema,
 } from '@/app/[locale]/(platform)/(dashboard)/dashboard/new/_components/new-listing-form'
 import { UseFormReturn } from 'react-hook-form'
-import { scrapeLink } from '@/lib/scrapeData'
+import { importAll, scrapeLink } from '@/lib/scrapeData'
 import { useTranslations } from 'next-intl'
 import {
   Dialog,
