@@ -61,6 +61,7 @@
     "listing_form_price": "Preț",
     "listing_form_content": "Descriere",
     "listing_form_submit": "Adaugă anunțul",
-    "listing_form_edit_submit": "Modifică anunțul"
+    "listing_form_edit_submit": "Modifică anunțul",
+    "listing_edit_title": "Modifică anunțul"
   }
 }
