@@ -2,7 +2,6 @@ import Stripe from 'stripe'
 import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
-import supabaseClient from '@/lib/supabaseClient'
 import { auth } from '@clerk/nextjs'
 
 export async function POST(req: Request) {
@@ -35,20 +34,20 @@ export async function POST(req: Request) {
     }
 
     try {
-      const { data, error } = await supabaseClient(token)
-        .from('subscriptions')
-        .insert([
-          {
-            user_id: session?.metadata?.userId,
-            stripeSubscriptionId: subscription.id,
-            stripeCustomerId: subscription.customer as string,
-            stripePriceId: subscription.items?.data[0].price.id,
-            stripeCurrentPeriodEnd: new Date(
-              subscription.current_period_end * 1000
-            ),
-          },
-        ])
-        .select()
+      // const { data, error } = await supabaseClient(token)
+      //   .from('subscriptions')
+      //   .insert([
+      //     {
+      //       user_id: session?.metadata?.userId,
+      //       stripeSubscriptionId: subscription.id,
+      //       stripeCustomerId: subscription.customer as string,
+      //       stripePriceId: subscription.items?.data[0].price.id,
+      //       stripeCurrentPeriodEnd: new Date(
+      //         subscription.current_period_end * 1000
+      //       ),
+      //     },
+      //   ])
+      //   .select()
     } catch (error) {
       console.log(error)
     }
@@ -63,15 +62,15 @@ export async function POST(req: Request) {
       return new NextResponse('Missing metadata', { status: 400 })
     }
 
-    supabaseClient(token)
-      .from('subscriptions')
-      .update({
-        stripePriceId: subscription.items?.data[0].price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ),
-      })
-      .match({ stripeSubscriptionId: subscription.id })
+    // supabaseClient(token)
+    //   .from('subscriptions')
+    //   .update({
+    //     stripePriceId: subscription.items?.data[0].price.id,
+    //     stripeCurrentPeriodEnd: new Date(
+    //       subscription.current_period_end * 1000
+    //     ),
+    //   })
+    //   .match({ stripeSubscriptionId: subscription.id })
   }
 
   return new NextResponse(null, { status: 200 })
