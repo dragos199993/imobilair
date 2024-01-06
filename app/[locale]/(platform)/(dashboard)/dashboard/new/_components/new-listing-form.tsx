@@ -147,7 +147,7 @@ function NewListingForm() {
                   </FormItem>
                 )}
               />
-              <ButtonLoading loading={isSubmitting}>
+              <ButtonLoading loading={isSubmitting} type="submit">
                 {t('listing_form_submit')}
               </ButtonLoading>
             </div>
