@@ -6,19 +6,7 @@ const nextConfig = withNextIntl({
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'img.clerk.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'jwjhvwidtzhsesymivtz.supabase.co',
-      },
-      {
-        protocol: 'https',
-        hostname: 'jwjhvwidtzhsesymivtz.supabase.co',
+        hostname: 'lh3.googleusercontent.com',
       },
     ],
   },

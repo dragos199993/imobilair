@@ -1,6 +1,5 @@
 import '../../globals.css'
 import { getTranslations } from 'next-intl/server'
-import { CustomClerkProvider } from '@/components/providers/CustomClerkProvider'
 
 type MetaProps = {
   params: {
@@ -19,10 +18,8 @@ export async function generateMetadata({ params: { locale } }: MetaProps) {
 
 export default function PlatformLayour({
   children,
-  params: { locale },
 }: {
   children: React.ReactNode
-  params: { locale: string }
 }) {
-  return <CustomClerkProvider locale={locale}>{children}</CustomClerkProvider>
+  return children
 }

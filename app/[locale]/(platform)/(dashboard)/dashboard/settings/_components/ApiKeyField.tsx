@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import { Copy, Eye, EyeOff } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
@@ -38,15 +39,15 @@ export const ApiKeyField = () => {
     <div className="mt-10">
       <p className="pb-4 text-2xl font-semibold">{t('your_api_key')}</p>
       <div className="flex w-full items-center space-x-2">
-        <p className="block max-w-[250px] overflow-scroll rounded-lg px-4 py-2 text-sm md:max-w-full">
-          {apiKeyVisible ? profile?.key : '*'.repeat(profile?.key.length || 0)}
-        </p>
         <Button type="button" variant="link" onClick={toggleApiKeyVisibility}>
           {apiKeyVisible ? <EyeOff /> : <Eye />}
         </Button>
         <Button type="submit" variant="link" onClick={copyToClipboard}>
           <Copy />
         </Button>
+        <p className="block max-w-[250px] overflow-scroll rounded-lg py-2 text-sm md:max-w-full">
+          {apiKeyVisible ? profile?.key : '*'.repeat(profile?.key.length || 0)}
+        </p>
       </div>
     </div>
   )

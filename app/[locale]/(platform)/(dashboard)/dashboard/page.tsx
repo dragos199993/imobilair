@@ -10,13 +10,14 @@ import {
 import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
 import { DashboardActions } from '@/app/[locale]/(platform)/(dashboard)/_components/dashboardActions'
 import prismadb from '@/lib/db'
-import { auth } from '@clerk/nextjs'
 import React from 'react'
 import ListingCard from '@/app/[locale]/(platform)/(dashboard)/dashboard/_components/listing-card'
 import { NoEventCard } from '@/app/[locale]/(platform)/(dashboard)/dashboard/_components/no-event-card'
+import { auth } from '@/lib/auth'
+import { redirect } from 'next/navigation'
 
 export default async function Home() {
-  const { userId } = auth()
+  const session = await auth()
   // const user = await currentUser()
   // const token = await getToken({ template: 'nunta-noastra' })
   //
@@ -28,8 +29,13 @@ export default async function Home() {
   const isPro = true
   const limitExceeded = true
   const listings = await prismadb.listing.findMany({
-    where: { userId: userId ?? '' },
+    where: { userId: session?.user?.id },
   })
+
+  if (!session) {
+    redirect('/')
+  }
+
   return (
     <DashboardLayout title="your_listings" actions={<DashboardActions />}>
       <section className="flex h-[600px]  flex-col">

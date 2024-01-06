@@ -78,13 +78,12 @@ function NewListingForm() {
     let limitExceeded = false
 
     if (!limitExceeded) {
-      const { data, error } = await createListing({
+      const { error } = await createListing({
         title: values.title,
         content: values.content,
         price: values.price,
       })
 
-      console.log(error)
       if (!error) {
         router.push(routes.DASHBOARD)
         router.refresh()

@@ -1,14 +1,14 @@
 import db from '@/lib/db'
-import { auth } from '@clerk/nextjs'
+import { auth } from '@/lib/auth'
 
 export async function GET(req: Request) {
-  const { userId } = auth()
+  const session = await auth()
 
   try {
-    if (userId) {
+    if (session) {
       const response = await db.profile.findUnique({
         where: {
-          clerkUserId: userId,
+          userId: session.user?.id,
         },
       })
 
