@@ -1,11 +1,11 @@
-import { currentUser } from '@clerk/nextjs'
+import { auth } from '@/lib/auth'
 
 export const getSelf = async () => {
-  const user = await currentUser()
+  const session = await auth()
 
-  if (!user) {
+  if (!session?.user) {
     throw new Error('Unauthorized')
   }
 
-  return user
+  return session.user
 }

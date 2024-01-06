@@ -1,18 +1,20 @@
-import { NextIntlClientProvider, useMessages, useTranslations } from 'next-intl'
-import { HeroVideo } from '@/app/[locale]/(landing)/_components/HeroVideo'
-import pick from 'lodash/pick'
-import { GoogleTagManager } from '@next/third-parties/google'
 import Script from 'next/script'
-import { Link } from '@/lib/i18n'
-import { routes } from '@/constants/routes'
-import { Button } from '@/components/ui/button'
-import { EarlyAccessDrawer } from '@/app/[locale]/(landing)/_components/EarlyAccessDrawer'
-import { Badge } from '@/components/ui/badge'
 
-export default function Home() {
-  const t = useTranslations('Landing')
-  const messages = useMessages()
+import HeroVideo from '@/app/[locale]/(landing)/_components/HeroVideo'
+import { GoogleTagManager } from '@next/third-parties/google'
+import { HeroSection } from '@/app/[locale]/(landing)/_components/HeroSection'
+import { auth } from '@/lib/auth'
+import { redirect } from '@/lib/i18n'
+
+export default async function Home() {
+  const session = await auth()
   const ga_id = process.env.NEXT_PUBLIC_GA_ID
+
+  // TODO: TBD if we need to block landing page
+  if (session) {
+    redirect('/dashboard')
+  }
+
   return (
     <>
       {process.env.NEXT_PUBLIC_GTM_ID && (
@@ -36,34 +38,7 @@ export default function Home() {
         `,
         }}
       ></Script>
-      <section className="px-12 text-center sm:p-0 sm:px-6">
-        <h1
-          className="animate-fade-up mb-4 mt-4 scroll-m-20 text-4xl font-extrabold tracking-tight opacity-0 sm:mt-20 lg:text-6xl"
-          style={{ animationDelay: '0.25s', animationFillMode: 'forwards' }}
-        >
-          {t.rich('hero_title', {
-            p: (chunks) => <p className="font-bold">{chunks}</p>,
-            span: (chunks) => <span className="text-primary">{chunks}</span>,
-          })}
-        </h1>
-        <p
-          className="animate-fade-up mx-auto mb-4 block max-w-[800px] text-gray-500 opacity-0 dark:text-gray-400 md:text-xl"
-          style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}
-        >
-          {t('hero_description')}
-        </p>
-        <NextIntlClientProvider messages={pick(messages, 'Landing')}>
-          <div className="mb-16 flex w-full justify-center gap-4 pt-2">
-            {process.env.NEXT_PUBLIC_IS_RELEASED === 'true' ? (
-              <Button asChild>
-                <Link href={routes.DASHBOARD}>{t('start_for_free')}</Link>
-              </Button>
-            ) : (
-              <EarlyAccessDrawer />
-            )}
-          </div>
-        </NextIntlClientProvider>
-      </section>
+      <HeroSection />
       <HeroVideo />
     </>
   )

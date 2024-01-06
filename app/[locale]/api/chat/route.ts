@@ -1,9 +1,9 @@
 import openai, { getEmbedding } from '@/lib/openai'
-import { auth } from '@clerk/nextjs'
 import { listingsIndex } from '@/lib/pinecone'
 import db from '@/lib/db'
 import { ChatCompletionMessageParam } from 'ai/prompts'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
+import { auth } from '@/lib/auth'
 
 export async function POST(req: Request) {
   try {
@@ -15,14 +15,12 @@ export async function POST(req: Request) {
       messagesTruncated.map((message) => message.content).join('\n')
     )
 
-    console.log(messagesTruncated)
-    const { userId } = auth()
+    const session = await auth()
 
-    console.log(userId)
     const vectorQueryResponse = await listingsIndex.query({
       vector: embedding,
       topK: 2,
-      filter: { userId },
+      filter: { userId: session?.user?.id },
     })
 
     const relevantListings = await db.listing.findMany({
@@ -30,11 +28,10 @@ export async function POST(req: Request) {
         id: {
           in: vectorQueryResponse.matches.map((match) => match.id),
         },
-        userId: userId ?? '',
+        userId: session?.user?.id ?? '',
       },
     })
 
-    console.log(relevantListings)
     let systemMessage: any
 
     if (!relevantListings.length) {

@@ -34,7 +34,7 @@ export async function POST(req: Request) {
       const vectorQueryResponse = await listingsIndex.query({
         vector: embedding,
         topK: 2,
-        filter: { userId: profile?.clerkUserId },
+        filter: { userId: profile?.userId },
       })
 
       const relevantListings = await db.listing.findMany({
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
           id: {
             in: vectorQueryResponse.matches.map((match) => match.id),
           },
-          userId: profile?.clerkUserId ?? '',
+          userId: profile?.userId ?? '',
         },
       })
 

@@ -5,13 +5,10 @@ import { EarlyAccessDrawer } from '@/app/[locale]/(landing)/_components/EarlyAcc
 import LanguageSwitcher from '@/components/languageSwitcher/LanguageSwitcher'
 import pick from 'lodash/pick'
 import { MobileNav } from '@/app/[locale]/(landing)/_components/MobileNav'
-import { Button } from '@/components/ui/button'
-import { routes } from '@/constants/routes'
-import { Link } from '@/lib/i18n'
+import { LoginWithGoogle } from '@/app/[locale]/(landing)/_components/LoginWithGoogle'
 
 export const Navbar = () => {
   const messages = useMessages()
-  const t = useTranslations('Landing')
 
   return (
     <NextIntlClientProvider messages={pick(messages, 'Landing')}>
@@ -19,9 +16,7 @@ export const Navbar = () => {
         <Logo />
         <div className="hidden flex-row gap-4 sm:flex">
           {process.env.NEXT_PUBLIC_IS_RELEASED === 'true' ? (
-            <Button asChild>
-              <Link href={routes.DASHBOARD}>{t('start_for_free')}</Link>
-            </Button>
+            <LoginWithGoogle />
           ) : (
             <EarlyAccessDrawer />
           )}

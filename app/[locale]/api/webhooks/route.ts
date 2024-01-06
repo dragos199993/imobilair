@@ -2,11 +2,8 @@ import Stripe from 'stripe'
 import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
-import { auth } from '@clerk/nextjs'
 
 export async function POST(req: Request) {
-  const { getToken } = auth()
-  const token = await getToken({ template: 'nunta-noastra' })
   const body = await req.text()
   const signature = headers().get('stripe-signature')!
 
