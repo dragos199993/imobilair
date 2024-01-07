@@ -1,11 +1,16 @@
 'use client'
 
 import { LayoutDashboard, LogOut, Menu, Plus, Settings } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { router } from 'next/client'
 import { usePathname } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
-import { useRouter } from '@/lib/i18n'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { useState } from 'react'
+
+import { Logout } from '@/app/[locale]/(platform)/(dashboard)/_components/logout'
+import { UserButton } from '@/app/[locale]/(platform)/(dashboard)/_components/user-button'
+import LanguageSwitcher from '@/components/languageSwitcher/LanguageSwitcher'
+import { Button } from '@/components/ui/button'
+import { ModeToggle } from '@/components/ui/mode-toggle'
 import {
   Sheet,
   SheetContent,
@@ -14,13 +19,9 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { routes } from '@/constants/routes'
-import LanguageSwitcher from '@/components/languageSwitcher/LanguageSwitcher'
-import { ModeToggle } from '@/components/ui/mode-toggle'
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { router } from 'next/client'
-import { Logout } from '@/app/[locale]/(platform)/(dashboard)/_components/logout'
-import { UserButton } from '@/app/[locale]/(platform)/(dashboard)/_components/user-button'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import { useRouter } from '@/lib/i18n'
+import { cn } from '@/lib/utils'
 
 const sidebarRoutes = [
   {

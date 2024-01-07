@@ -1,9 +1,9 @@
-import NextAuth from 'next-auth'
-import bcrypt from 'bcrypt'
-import Google from 'next-auth/providers/google'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-
+import bcrypt from 'bcrypt'
 import type { NextAuthConfig } from 'next-auth'
+import NextAuth from 'next-auth'
+import Google from 'next-auth/providers/google'
+
 import db from '@/lib/db'
 
 export const config = {

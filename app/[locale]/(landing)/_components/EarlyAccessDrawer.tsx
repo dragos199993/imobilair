@@ -1,6 +1,14 @@
 'use client'
 
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
+
+import { createEarlyAccessSubmission } from '@/actions/create-early-access-submission'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -20,11 +28,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
-import { Input } from '@/components/ui/input'
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useTranslations } from 'next-intl'
 import {
   Form,
   FormControl,
@@ -33,10 +36,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { toast } from 'sonner'
-import { createEarlyAccessSubmission } from '@/actions/create-early-access-submission'
-import { Loader2 } from 'lucide-react'
-import { useState } from 'react'
+import { Input } from '@/components/ui/input'
+import { useMediaQuery } from '@/hooks/use-media-query'
 
 export function EarlyAccessDrawer() {
   const t = useTranslations('Landing')

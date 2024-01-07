@@ -1,8 +1,8 @@
+import { GoogleTagManager } from '@next/third-parties/google'
 import Script from 'next/script'
 
-import HeroVideo from '@/app/[locale]/(landing)/_components/HeroVideo'
-import { GoogleTagManager } from '@next/third-parties/google'
 import { HeroSection } from '@/app/[locale]/(landing)/_components/HeroSection'
+import HeroVideo from '@/app/[locale]/(landing)/_components/HeroVideo'
 import { auth } from '@/lib/auth'
 import { redirect } from '@/lib/i18n'
 

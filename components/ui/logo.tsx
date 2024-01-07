@@ -1,5 +1,6 @@
-import React, { ReactElement } from 'react'
 import Link from 'next/link'
+import React, { ReactElement } from 'react'
+
 import { routes } from '@/constants/routes'
 
 export const Logo = () => {

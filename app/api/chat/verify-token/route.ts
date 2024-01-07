@@ -9,6 +9,7 @@ const headers = {
 export async function POST(req: Request) {
   const body = await req.json()
 
+  console.log(body.apiKey)
   try {
     const profile = await db.profile.findUnique({
       where: {
@@ -16,6 +17,7 @@ export async function POST(req: Request) {
       },
     })
 
+    console.log(profile)
     return Response.json(
       { success: !!profile },
       {

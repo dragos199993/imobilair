@@ -1,11 +1,12 @@
 'use client'
+import { Import } from 'lucide-react'
+import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+
+import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { routes } from '@/constants/routes'
-import Link from 'next/link'
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
-import { Import } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 
 export default function Loading() {
   const t = useTranslations('Dashboard')

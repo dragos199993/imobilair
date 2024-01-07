@@ -1,5 +1,18 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
+import { useEffect, useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import * as z from 'zod'
+
+import { createListing } from '@/actions/create-listing'
+import { ImportData } from '@/app/[locale]/(platform)/(dashboard)/dashboard/new/_components/import-data'
+import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
+import { Button } from '@/components/ui/button'
+import { ButtonLoading } from '@/components/ui/button-loading'
 import {
   Form,
   FormControl,
@@ -8,21 +21,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider, useForm } from 'react-hook-form'
-import * as z from 'zod'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { useRouter } from 'next/navigation'
-import { routes } from '@/constants/routes'
 import { Textarea } from '@/components/ui/textarea'
-import { createListing } from '@/actions/create-listing'
-import { Loader2 } from 'lucide-react'
-import { ImportData } from '@/app/[locale]/(platform)/(dashboard)/dashboard/new/_components/import-data'
-import { useEffect, useState } from 'react'
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
-import { useTranslations } from 'next-intl'
-import { ButtonLoading } from '@/components/ui/button-loading'
+import { routes } from '@/constants/routes'
 
 export const importDataSchema = z.object({
   url: z.string().min(2, {
@@ -147,7 +148,7 @@ function NewListingForm() {
                   </FormItem>
                 )}
               />
-              <ButtonLoading loading={isSubmitting}>
+              <ButtonLoading loading={isSubmitting} type="submit">
                 {t('listing_form_submit')}
               </ButtonLoading>
             </div>

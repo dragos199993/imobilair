@@ -1,14 +1,21 @@
-import React, { useEffect, useRef } from 'react'
-import { useChat } from 'ai/react'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { Bot, Trash, X, XCircle } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import { Message } from 'ai'
-import { useOnClickOutside } from 'usehooks-ts'
+import { useChat } from 'ai/react'
+import { Bot, Trash, X, XCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import React, { useEffect, useRef } from 'react'
+import { useOnClickOutside } from 'usehooks-ts'
+
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 import {
   Drawer,
   DrawerClose,
@@ -19,16 +26,10 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useMediaQuery } from '@/hooks/use-media-query'
+import { cn } from '@/lib/utils'
 
 type Props = {
   open: boolean

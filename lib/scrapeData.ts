@@ -1,5 +1,6 @@
 'use server'
 import { JSDOM } from 'jsdom'
+
 import { createListing } from '@/actions/create-listing'
 
 export const scrapeLink = async (data: string) => {

@@ -1,12 +1,23 @@
 'use client'
-import { Button } from '@/components/ui/button'
 import { useTranslations } from 'next-intl'
+import { useState } from 'react'
+
 import { login } from '@/actions/auth/login'
+import { ButtonLoading } from '@/components/ui/button-loading'
 
 export const LoginWithGoogle = () => {
   const t = useTranslations('Landing')
+  const [loading, setLoading] = useState(false)
+
+  const loginWithLoading = async () => {
+    console.log('here')
+    setLoading(true)
+    await login()
+  }
 
   return (
-    <Button onClick={async () => await login()}>{t('start_for_free')}</Button>
+    <ButtonLoading loading={loading} onClick={loginWithLoading}>
+      {t('start_for_free')}
+    </ButtonLoading>
   )
 }

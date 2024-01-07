@@ -1,8 +1,9 @@
-import React from 'react'
-import { LoginWithGoogle } from '@/app/[locale]/(landing)/_components/LoginWithGoogle'
-import { EarlyAccessDrawer } from '@/app/[locale]/(landing)/_components/EarlyAccessDrawer'
 import pick from 'lodash/pick'
 import { NextIntlClientProvider, useMessages, useTranslations } from 'next-intl'
+import React from 'react'
+
+import { EarlyAccessDrawer } from '@/app/[locale]/(landing)/_components/EarlyAccessDrawer'
+import { LoginWithGoogle } from '@/app/[locale]/(landing)/_components/LoginWithGoogle'
 
 export const HeroSection = () => {
   const messages = useMessages()

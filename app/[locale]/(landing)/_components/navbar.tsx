@@ -1,11 +1,12 @@
+import pick from 'lodash/pick'
+import { NextIntlClientProvider, useMessages, useTranslations } from 'next-intl'
+
+import { EarlyAccessDrawer } from '@/app/[locale]/(landing)/_components/EarlyAccessDrawer'
+import { LoginWithGoogle } from '@/app/[locale]/(landing)/_components/LoginWithGoogle'
+import { MobileNav } from '@/app/[locale]/(landing)/_components/MobileNav'
+import LanguageSwitcher from '@/components/languageSwitcher/LanguageSwitcher'
 import { Logo } from '@/components/ui/logo'
 import { ModeToggle } from '@/components/ui/mode-toggle'
-import { NextIntlClientProvider, useMessages, useTranslations } from 'next-intl'
-import { EarlyAccessDrawer } from '@/app/[locale]/(landing)/_components/EarlyAccessDrawer'
-import LanguageSwitcher from '@/components/languageSwitcher/LanguageSwitcher'
-import pick from 'lodash/pick'
-import { MobileNav } from '@/app/[locale]/(landing)/_components/MobileNav'
-import { LoginWithGoogle } from '@/app/[locale]/(landing)/_components/LoginWithGoogle'
 
 export const Navbar = () => {
   const messages = useMessages()

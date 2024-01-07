@@ -1,3 +1,6 @@
+-- CreateExtension
+CREATE EXTENSION IF NOT EXISTS "vector";
+
 -- CreateTable
 CREATE TABLE "EarlyAccessSubmission" (
     "id" TEXT NOT NULL,
@@ -15,6 +18,7 @@ CREATE TABLE "Listing" (
     "content" TEXT NOT NULL,
     "price" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
+    "embedding" vector(1536),
 
     CONSTRAINT "Listing_pkey" PRIMARY KEY ("id")
 );
@@ -102,6 +106,9 @@ CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token"
 
 -- CreateIndex
 CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationToken"("identifier", "token");
+
+-- AddForeignKey
+ALTER TABLE "Listing" ADD CONSTRAINT "Listing_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

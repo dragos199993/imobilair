@@ -1,20 +1,21 @@
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { routes } from '@/constants/routes'
+import { redirect } from 'next/navigation'
+import React from 'react'
+
+import { DashboardActions } from '@/app/[locale]/(platform)/(dashboard)/_components/dashboardActions'
+import ListingCard from '@/app/[locale]/(platform)/(dashboard)/dashboard/_components/listing-card'
+import { NoEventCard } from '@/app/[locale]/(platform)/(dashboard)/dashboard/_components/no-event-card'
+import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
-import { DashboardActions } from '@/app/[locale]/(platform)/(dashboard)/_components/dashboardActions'
-import prismadb from '@/lib/db'
-import React from 'react'
-import ListingCard from '@/app/[locale]/(platform)/(dashboard)/dashboard/_components/listing-card'
-import { NoEventCard } from '@/app/[locale]/(platform)/(dashboard)/dashboard/_components/no-event-card'
+import { routes } from '@/constants/routes'
 import { auth } from '@/lib/auth'
-import { redirect } from 'next/navigation'
+import prismadb from '@/lib/db'
 
 export default async function Home() {
   const session = await auth()

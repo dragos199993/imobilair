@@ -1,6 +1,7 @@
 'use client'
-import { Select } from '@/components/ui/select'
 import { ReactNode, useTransition } from 'react'
+
+import { Select } from '@/components/ui/select'
 import { usePathname, useRouter } from '@/lib/i18n'
 
 type Props = {

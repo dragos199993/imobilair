@@ -1,5 +1,6 @@
-import React, { ReactNode } from 'react'
 import { Loader2 } from 'lucide-react'
+import React, { ReactNode } from 'react'
+
 import { Button, ButtonProps } from '@/components/ui/button'
 
 type Props = {
@@ -7,9 +8,9 @@ type Props = {
   loading: boolean
 } & ButtonProps
 
-export const ButtonLoading = ({ loading, children }: Props) => {
+export const ButtonLoading = ({ loading, children, ...props }: Props) => {
   return (
-    <Button type="submit" aria-disabled={loading}>
+    <Button aria-disabled={loading} {...props}>
       {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       {children}
     </Button>

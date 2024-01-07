@@ -1,10 +1,12 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  extensions = [vector]
 }
 
 model EarlyAccessSubmission {
@@ -20,6 +22,8 @@ model Listing {
   content String
   price   String
   userId  String
+  embedding   Unsupported("vector(1536)") ?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Profile {
@@ -62,6 +66,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  listings      Listing[]
   accounts      Account[]
   sessions      Session[]
 }
