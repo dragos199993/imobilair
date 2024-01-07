@@ -1,7 +1,7 @@
 'use client'
-import { Button } from '@/components/ui/button'
 import { deleteAccountAction } from '@/actions/auth/delete-account'
 import { logout } from '@/actions/auth/logout'
+import { Button } from '@/components/ui/button'
 
 export const DeleteAccount = () => {
   const deleteAccount = async () => {

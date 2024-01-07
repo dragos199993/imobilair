@@ -1,9 +1,10 @@
 'use client'
+import Link from 'next/link'
+
+import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { routes } from '@/constants/routes'
-import Link from 'next/link'
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout'
 
 export default function Loading() {
   return (

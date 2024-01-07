@@ -1,5 +1,6 @@
 'use client'
 import { ReactNode } from 'react'
+
 import { Skeleton } from '@/components/ui/skeleton'
 
 type Props = {

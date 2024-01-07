@@ -1,5 +1,5 @@
-import { getListingById } from '@/services/listing-service'
 import EditListingForm from '@/app/[locale]/(platform)/(dashboard)/dashboard/edit/[id]/_components/edit-listing.form'
+import { getListingById } from '@/services/listing-service'
 
 export default async function EditEventPage({
   params,

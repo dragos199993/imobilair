@@ -1,9 +1,9 @@
 'use client'
-import { Logo } from '@/components/ui/logo'
-import { ModeToggle } from '@/components/ui/mode-toggle'
+import { UserButton } from '@/app/[locale]/(platform)/(dashboard)/_components/user-button'
 import LanguageSwitcher from '@/components/languageSwitcher/LanguageSwitcher'
 import { ChatButton } from '@/components/ui/ai/ChatButton'
-import { UserButton } from '@/app/[locale]/(platform)/(dashboard)/_components/user-button'
+import { Logo } from '@/components/ui/logo'
+import { ModeToggle } from '@/components/ui/mode-toggle'
 
 export const Navbar = () => {
   return (

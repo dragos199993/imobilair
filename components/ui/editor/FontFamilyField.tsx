@@ -1,4 +1,8 @@
 import React, { FC } from 'react'
+import { ControllerRenderProps, FieldValues } from 'react-hook-form'
+
+import { cn, fontFamilyMapping } from '@/lib/utils'
+
 import { FormControl, FormItem } from '../form'
 import {
   Select,
@@ -8,8 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../select'
-import { cn, fontFamilyMapping } from '@/lib/utils'
-import { ControllerRenderProps, FieldValues } from 'react-hook-form'
 
 type Props = {
   field: ControllerRenderProps<FieldValues, any>

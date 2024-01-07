@@ -1,8 +1,9 @@
-import React, { FC } from 'react'
-import { FormControl, FormItem, FormMessage } from '../form'
-import { Button } from '../button'
 import { AlignCenter, AlignLeft, AlignRight } from 'lucide-react'
+import React, { FC } from 'react'
 import { ControllerRenderProps, FieldValues } from 'react-hook-form'
+
+import { Button } from '../button'
+import { FormControl, FormItem, FormMessage } from '../form'
 
 type Props = {
   field: ControllerRenderProps<FieldValues, any>

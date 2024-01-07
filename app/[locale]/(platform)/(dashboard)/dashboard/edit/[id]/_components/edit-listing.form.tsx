@@ -1,5 +1,15 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
+import { FC } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import * as z from 'zod'
+
+import { updateListing } from '@/actions/update-listing'
+import { formSchema } from '@/app/[locale]/(platform)/(dashboard)/dashboard/new/_components/new-listing-form'
+import { ButtonLoading } from '@/components/ui/button-loading'
 import {
   Form,
   FormControl,
@@ -8,18 +18,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider, useForm } from 'react-hook-form'
-import * as z from 'zod'
 import { Input } from '@/components/ui/input'
-import { useRouter } from 'next/navigation'
-import { routes } from '@/constants/routes'
-import { FC } from 'react'
 import { Textarea } from '@/components/ui/textarea'
-import { updateListing } from '@/actions/update-listing'
-import { formSchema } from '@/app/[locale]/(platform)/(dashboard)/dashboard/new/_components/new-listing-form'
-import { useTranslations } from 'next-intl'
-import { ButtonLoading } from '@/components/ui/button-loading'
+import { routes } from '@/constants/routes'
 
 type Props = z.infer<typeof formSchema> & { id: string }
 

@@ -1,7 +1,8 @@
 'use client'
 import { useTranslations } from 'next-intl'
-import { login } from '@/actions/auth/login'
 import { useState } from 'react'
+
+import { login } from '@/actions/auth/login'
 import { ButtonLoading } from '@/components/ui/button-loading'
 
 export const LoginWithGoogle = () => {

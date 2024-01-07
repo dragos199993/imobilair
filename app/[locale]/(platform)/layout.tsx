@@ -1,4 +1,5 @@
 import '../../globals.css'
+
 import { getTranslations } from 'next-intl/server'
 
 type MetaProps = {

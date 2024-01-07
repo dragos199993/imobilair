@@ -1,8 +1,10 @@
-import type { Metadata } from 'next'
 import '../../globals.css'
-import { Navbar } from '@/app/[locale]/(landing)/_components/navbar'
-import { Footer } from '@/app/[locale]/(landing)/_components/footer'
+
+import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
+
+import { Footer } from '@/app/[locale]/(landing)/_components/footer'
+import { Navbar } from '@/app/[locale]/(landing)/_components/navbar'
 
 type MetaProps = {
   params: {

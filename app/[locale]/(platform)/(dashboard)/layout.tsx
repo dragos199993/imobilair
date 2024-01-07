@@ -1,8 +1,9 @@
-import { Navbar } from '@/app/[locale]/(platform)/(dashboard)/_components/navbar'
-import { Sidebar } from '@/app/[locale]/(platform)/(dashboard)/_components/sidebar'
+import { SessionProvider } from 'next-auth/react'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
 import { ReactNode } from 'react'
-import { SessionProvider } from 'next-auth/react'
+
+import { Navbar } from '@/app/[locale]/(platform)/(dashboard)/_components/navbar'
+import { Sidebar } from '@/app/[locale]/(platform)/(dashboard)/_components/sidebar'
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const messages = useMessages()

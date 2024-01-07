@@ -1,9 +1,9 @@
-import openai, { getEmbedding } from '@/lib/openai'
-import { listingsIndex } from '@/lib/pinecone'
-import db from '@/lib/db'
-import { ChatCompletionMessageParam } from 'ai/prompts'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
+import { ChatCompletionMessageParam } from 'ai/prompts'
 import { NextResponse } from 'next/server'
+
+import db from '@/lib/db'
+import openai, { getEmbedding } from '@/lib/openai'
 
 const sentHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -31,16 +31,13 @@ export async function POST(req: Request) {
         messagesTruncated.map((message) => message.content).join('\n')
       )
 
-      const vectorQueryResponse = await listingsIndex.query({
-        vector: embedding,
-        topK: 2,
-        filter: { userId: profile?.userId },
-      })
+      const items =
+        await db.$queryRaw`SELECT id, "userId", embedding::text FROM "Listing" WHERE "userId" = ${profile?.userId} ORDER BY embedding <-> ${embedding}::vector LIMIT 5`
 
       const relevantListings = await db.listing.findMany({
         where: {
           id: {
-            in: vectorQueryResponse.matches.map((match) => match.id),
+            in: (items as any).id,
           },
           userId: profile?.userId ?? '',
         },

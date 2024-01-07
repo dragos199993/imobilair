@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
-import { EditorBarContainer } from './EditorBarContainer'
+import { FieldValues, UseFormReturn } from 'react-hook-form'
+
 import { FormField } from '../form'
-import { FontFamilyField } from './FontFamilyField'
 import { Separator } from '../separator'
 import { AlignField } from './AlignField'
-import { FieldValues, UseFormReturn } from 'react-hook-form'
+import { EditorBarContainer } from './EditorBarContainer'
+import { FontFamilyField } from './FontFamilyField'
 
 type Props = {
   form: UseFormReturn<FieldValues, any, undefined>

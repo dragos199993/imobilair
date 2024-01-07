@@ -1,10 +1,11 @@
-import React from 'react'
-import { cn } from '@/lib/utils'
 import { LogOut } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import React from 'react'
+
+import { logout } from '@/actions/auth/logout'
 import { Button } from '@/components/ui/button'
 import { useMediaQuery } from '@/hooks/use-media-query'
-import { useTranslations } from 'next-intl'
-import { logout } from '@/actions/auth/logout'
+import { cn } from '@/lib/utils'
 
 export const Logout = () => {
   const isDesktop = useMediaQuery('(min-width: 768px)')

@@ -1,15 +1,16 @@
-import React from 'react'
-import { Button, buttonVariants } from '@/components/ui/button'
-import Link from 'next/link'
-import { routes } from '@/constants/routes'
-import { cn } from '@/lib/utils'
 import { Info, Plus } from 'lucide-react'
+import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import React from 'react'
+
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { useTranslations } from 'next-intl'
+import { routes } from '@/constants/routes'
+import { cn } from '@/lib/utils'
 
 export const DashboardActions = () => {
   const t = useTranslations('Dashboard')

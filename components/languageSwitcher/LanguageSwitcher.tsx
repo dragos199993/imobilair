@@ -1,13 +1,13 @@
 import { useLocale, useTranslations } from 'next-intl'
 
-import { locales } from '@/lib/i18n'
+import { LanguageSwitcherSelect } from '@/components/languageSwitcher/LanguageSwitcherSelect'
 import {
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { LanguageSwitcherSelect } from '@/components/languageSwitcher/LanguageSwitcherSelect'
+import { locales } from '@/lib/i18n'
 
 export default function LanguageSwitcher() {
   const t = useTranslations('LocaleSwitcher')

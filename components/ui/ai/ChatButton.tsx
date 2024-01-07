@@ -1,7 +1,8 @@
+import { Bot } from 'lucide-react'
 import React, { useState } from 'react'
+
 import { Chatbox } from '@/components/ui/ai/Chatbox'
 import { Button } from '@/components/ui/button'
-import { Bot } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 type Props = {
