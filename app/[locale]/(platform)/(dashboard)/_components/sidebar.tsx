@@ -66,7 +66,7 @@ const SidebarRoot = ({ isDesktop = false, setSidebarOpen }: Props) => {
   }
 
   return (
-    <div className="flex h-full flex-col space-y-2 bg-background md:bg-secondary">
+    <div className="flex h-full flex-col space-y-2 bg-background">
       <div className="flex flex-1 justify-center px-0 py-3 md:p-3">
         <div className={cn('space-y-2', !isDesktop && 'w-full')}>
           {sidebarRoutes.map((route) => (

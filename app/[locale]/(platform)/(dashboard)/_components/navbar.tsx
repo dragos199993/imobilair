@@ -7,7 +7,7 @@ import { ModeToggle } from '@/components/ui/mode-toggle'
 
 export const Navbar = () => {
   return (
-    <nav className="fixed z-40 flex h-16 w-full items-center justify-center gap-5 bg-secondary px-4 md:justify-between">
+    <nav className="fixed z-40 flex h-16 w-full items-center justify-center gap-5 px-4 md:justify-between">
       <Logo />
       <div className="absolute right-4 top-3 block md:hidden">
         <ChatButton hideLabel={true} />
