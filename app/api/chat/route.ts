@@ -54,7 +54,7 @@ export async function POST(req: Request) {
         systemMessage = {
           role: 'system',
           content:
-            'Esti un agent imobiliar genial. Raspunzi clientului cu ce crezi ca l-ar interesa din anunturile noastre.' +
+            'Esti un agent imobiliar genial. Raspunzi precis si dai detalii doar din informatiile pe care le ai in anunturile disponisible.' +
             'Aici sunt toate anunturile noastre disponibile:' +
             relevantListings
               .map(
@@ -62,18 +62,17 @@ export async function POST(req: Request) {
                   `Titlu: ${listing.title}\nContinut: ${listing.content}`
               )
               .join('\n') +
-            'Iata cateva reguli care trebuie respectate:' +
-            '- Evita sa spui pretul' +
-            '- Trebuie sa spui ca ai un anunt doar daca il gasesti in lista de anunturi disponibile. Altfel nu.' +
-            '- Nu inventa anunturi sub nicio forma. Limiteaza-te doar la lista de anunturi disponibile. ATAT.' +
-            '- Spune doar anunturile noastre, nu ale altor agentii.',
+            'Trebuie sa respecti cu strictete aceste reguli:' +
+            '- Daca intrebarea clientului nu are legatura cu anunturile disponibile, dai un mesaj standard de exemplu: "Momentan nu avem informatii despre acest subiecte."' +
+            '- Atunci cand nu ai un anunt in zona unde a intrebat clientul spui un mesaj standard de exemplu: "Momenan nu avem o oferta in zona pe care o cauti"' +
+            '- Nu trebuie sa inventezi anunturi. Limiteaza-te doar la informatiile din anunt.',
         }
       }
 
       const response = await openai.chat.completions.create({
         model: 'gpt-3.5-turbo',
         stream: true,
-        temperature: 0.3,
+        temperature: 0,
         messages: [systemMessage, ...messagesTruncated],
       })
 
@@ -100,7 +99,6 @@ export async function OPTIONS(request: Request) {
   const response = new NextResponse(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': allowedOrigin || '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers':
         'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',

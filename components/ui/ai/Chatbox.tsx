@@ -1,8 +1,10 @@
+import { Profile } from '@prisma/client'
 import { Message } from 'ai'
 import { useChat } from 'ai/react'
+import axios from 'axios'
 import { Bot, Trash, X, XCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -40,6 +42,14 @@ export const Chatbox = ({ setOpen, open }: Props) => {
   const isDesktop = useMediaQuery('(min-width: 768px)')
   const ref = useRef(null)
   useOnClickOutside(ref, () => setOpen(false))
+  const [profile, setProfile] = useState<Profile>()
+
+  useEffect(() => {
+    ;(async () => {
+      const { data } = await axios('/api/profile')
+      setProfile(data)
+    })()
+  }, [])
 
   const {
     messages,
@@ -50,7 +60,7 @@ export const Chatbox = ({ setOpen, open }: Props) => {
     isLoading,
     error,
   } = useChat({
-    api: '/en/api/chat',
+    api: `/api/chat?apiKey=${profile?.key}`,
   })
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
