@@ -16,7 +16,6 @@ export async function POST(req: Request) {
       },
     })
 
-    console.log(profile)
     return Response.json(
       { success: !!profile },
       {
